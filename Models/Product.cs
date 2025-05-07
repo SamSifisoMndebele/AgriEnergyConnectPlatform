@@ -6,12 +6,21 @@ namespace AgriEnergyConnectPlatform.Models;
 public class Product
 {
     public int Id { get; set; }
+    
+    [StringLength(60, MinimumLength = 3), Required]
     public string? Name { get; set; }
+    
+    [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$"), StringLength(30), Required]
     public string Category { get; set; }
-    [Display(Name = "Production Date")]
-    [DataType(DataType.Date)]
+    
+    // [Range(typeof(DateTime), "1/1/2000", "1/1/2050")]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    [Display(Name = "Production Date"), DataType(DataType.Date)]
     public DateTime ProductionDate { get; set; }
-    [Column(TypeName = "decimal(18, 2)")]
+    
+    [Range(0, 1000000), DataType(DataType.Currency), Column(TypeName = "decimal(18, 2)")]
     public decimal Price { get; set; }
-    public string Rating { get; set; } = string.Empty;
+    
+    [Range(0, 10)]
+    public int Rating { get; set; } = 0;
 }

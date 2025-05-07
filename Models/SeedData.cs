@@ -21,7 +21,7 @@ public static class SeedData
                     ProductionDate = DateTime.Parse("1989-2-12"),
                     Category = "Romantic Comedy",
                     Price = 7.99M,
-                    Rating = "R"
+                    Rating = 2
                 },
                 new Product
                 {
@@ -29,7 +29,7 @@ public static class SeedData
                     ProductionDate = DateTime.Parse("1984-3-13"),
                     Category = "Comedy",
                     Price = 8.99M,
-                    Rating = "G"
+                    Rating = 4
                 },
                 new Product
                 {
@@ -37,7 +37,7 @@ public static class SeedData
                     ProductionDate = DateTime.Parse("1986-2-23"),
                     Category = "Comedy",
                     Price = 9.99M,
-                    Rating = "R"
+                    Rating = 8
                 },
                 new Product
                 {
@@ -45,7 +45,7 @@ public static class SeedData
                     ProductionDate = DateTime.Parse("1959-4-15"),
                     Category = "Western",
                     Price = 3.99M,
-                    Rating = "NA"
+                    Rating = 1
                 }
             );
             context.SaveChanges();
