@@ -22,6 +22,29 @@ namespace AgriEnergyConnectPlatform.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Farmer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Names")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Farmer");
+                });
+
             modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -34,6 +57,9 @@ namespace AgriEnergyConnectPlatform.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("FarmerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -51,7 +77,20 @@ namespace AgriEnergyConnectPlatform.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FarmerId");
+
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Product", b =>
+                {
+                    b.HasOne("AgriEnergyConnectPlatform.Models.Farmer", "Farmer")
+                        .WithMany()
+                        .HasForeignKey("FarmerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Farmer");
                 });
 #pragma warning restore 612, 618
         }

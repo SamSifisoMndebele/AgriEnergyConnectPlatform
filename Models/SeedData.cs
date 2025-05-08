@@ -13,7 +13,7 @@ public static class SeedData
             throw new ArgumentNullException(nameof(serviceProvider));
         }
         if (!context.Product.Any()) 
-        {   // DB not seeded with Products
+        {   // DB is not seeded with Products
             context.Product.AddRange(
                 new Product
                 {
@@ -21,7 +21,8 @@ public static class SeedData
                     ProductionDate = DateTime.Parse("1989-2-12"),
                     Category = "Romantic Comedy",
                     Price = 7.99M,
-                    Rating = 2
+                    Rating = 2,
+                    Farmer = Former2
                 },
                 new Product
                 {
@@ -29,7 +30,8 @@ public static class SeedData
                     ProductionDate = DateTime.Parse("1984-3-13"),
                     Category = "Comedy",
                     Price = 8.99M,
-                    Rating = 4
+                    Rating = 4,
+                    Farmer = Former1
                 },
                 new Product
                 {
@@ -37,7 +39,8 @@ public static class SeedData
                     ProductionDate = DateTime.Parse("1986-2-23"),
                     Category = "Comedy",
                     Price = 9.99M,
-                    Rating = 8
+                    Rating = 8,
+                    Farmer = Former1
                 },
                 new Product
                 {
@@ -45,10 +48,42 @@ public static class SeedData
                     ProductionDate = DateTime.Parse("1959-4-15"),
                     Category = "Western",
                     Price = 3.99M,
-                    Rating = 1
+                    Rating = 1,
+                    Farmer = Former4
                 }
             );
             context.SaveChanges();
         }
+        else if (!context.Farmer.Any())
+        {
+            // DB is not seeded with Farmers
+            context.Farmer.AddRange(
+                Former1,
+                Former2,
+                Former3,
+                Former4
+            );
+        }
     }
+
+    private static Farmer Former1 => new Farmer
+    {
+        Names = "Sam",
+        LastName = "Mndebele",
+    };
+    private static Farmer Former2 => new Farmer
+    {
+        Names = "John",
+        LastName = "Doe",
+    };
+    private static Farmer Former3 => new Farmer
+    {
+        Names = "Jane",
+        LastName = "Doe",
+    };
+    private static Farmer Former4 => new Farmer
+    {
+        Names = "Sifiso",
+        LastName = "Smith",
+    };
 }

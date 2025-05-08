@@ -23,4 +23,5 @@ public class Product
     
     [Range(0, 10)]
     public int Rating { get; set; } = 0;
+    public Farmer Farmer { get; set; }
 }

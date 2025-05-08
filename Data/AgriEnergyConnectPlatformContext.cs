@@ -15,5 +15,6 @@ namespace AgriEnergyConnectPlatform.Data
         }
 
         public DbSet<AgriEnergyConnectPlatform.Models.Product> Product { get; set; } = default!;
+        public DbSet<AgriEnergyConnectPlatform.Models.Farmer> Farmer { get; set; } = default!;
     }
 }
