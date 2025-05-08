@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Localization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("AgriEnergyConnectPlatformContext")
+                       ?? throw new InvalidOperationException("Connection string not found.");
+builder.Services.AddDbContext<AgriEnergyConnectPlatformContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AgriEnergyConnectPlatformContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AgriEnergyConnectPlatformContext") 
