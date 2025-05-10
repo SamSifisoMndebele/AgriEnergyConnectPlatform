@@ -1,8 +1,11 @@
 using System.Globalization;
+using AgriEnergyConnectPlatform;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using AgriEnergyConnectPlatform.Pages.Auth;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,18 +14,25 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AgriEnergyConnectPlatformContext")
                        ?? throw new InvalidOperationException("Connection string not found.");
 builder.Services.AddDbContext<AgriEnergyConnectPlatformContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddAuthentication(CookieAuthentication.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.SlidingExpiration = true; 
+        options.Cookie.Name = CookieAuthentication.CookiePrefix + CookieAuthentication.AuthenticationScheme; 
+        options.LoginPath = CookieAuthentication.LoginPath; 
+        options.LogoutPath = CookieAuthentication.LogoutPath;
+        options.AccessDeniedPath = CookieAuthentication.AccessDeniedPath;
+        options.ReturnUrlParameter = CookieAuthentication.ReturnUrlParameter;
+        // options.EventsType = typeof(CustomCookieAuthenticationEvents);
+    });
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<AgriEnergyConnectPlatformContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AgriEnergyConnectPlatformContext") 
-                         ?? throw new InvalidOperationException("Connection string 'AgriEnergyConnectPlatformContext' not found.")));
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    SeedData.Initialize(services);
+using (var scope = app.Services.CreateScope()) {
+    SeedData.Initialize(scope.ServiceProvider);
 }
 
 // Configure the HTTP request pipeline.
@@ -37,11 +47,11 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
-app.MapRazorPages()
-    .WithStaticAssets();
+app.MapRazorPages().WithStaticAssets();
 
 var defaultCulture = new CultureInfo("en-US");
 var localizationOptions = new RequestLocalizationOptions
