@@ -12,6 +12,11 @@ public class Login : PageModel
 {
     [BindProperty]
     public PasswordCredential Credential { get; set; }
+    
+    public void OnGet()
+    {
+        
+    }
 
     public async Task<IActionResult> OnPostAsync()
     {
