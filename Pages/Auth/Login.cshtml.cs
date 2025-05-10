@@ -11,14 +11,9 @@ namespace AgriEnergyConnectPlatform.Pages.Auth;
 public class Login : PageModel
 {
     [BindProperty]
-    public Credential Credential { get; set; }
-    
-    public void OnGet()
-    {
-        
-    }
+    public PasswordCredential Credential { get; set; }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid) return Page();
         // ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -72,15 +67,4 @@ public class Login : PageModel
         // Something failed. Redisplay the form.
         return Page();
     }
-}
-    
-public class Credential
-{
-    [Required]
-    [EmailAddress]
-    public string Email { get; set; }
-
-    [Required]
-    [DataType(DataType.Password)]
-    public string Password { get; set; }
 }
