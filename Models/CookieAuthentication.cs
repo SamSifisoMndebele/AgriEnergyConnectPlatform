@@ -1,4 +1,4 @@
-﻿namespace AgriEnergyConnectPlatform.Pages.Auth;
+﻿namespace AgriEnergyConnectPlatform.Models;
 
 /// <summary>
 /// Default values related to cookie-based authentication handler
