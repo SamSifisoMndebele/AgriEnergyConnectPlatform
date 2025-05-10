@@ -27,7 +27,17 @@ builder.Services.AddAuthentication(CookieAuthentication.AuthenticationScheme)
         options.ReturnUrlParameter = CookieAuthentication.ReturnUrlParameter;
         // options.EventsType = typeof(CustomCookieAuthenticationEvents);
     });
-builder.Services.AddRazorPages();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("Employee", policy => policy.RequireRole("Employee"));
+    options.AddPolicy("Farmer", policy => policy.RequireRole("Farmer"));
+});
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Farmers", "Farmer");
+    options.Conventions.AuthorizeFolder("/Employees", "Admin");
+});
 
 var app = builder.Build();
 
