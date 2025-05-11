@@ -26,7 +26,7 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        IQueryable<string> categoryQuery = from p in _context.Product
+        var categoryQuery = from p in _context.Product
             orderby p.Category
             select p.Category;
 
