@@ -22,50 +22,60 @@ namespace AgriEnergyConnectPlatform.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.AppUser", b =>
+            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.DbUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("Names")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
 
                     b.Property<string>("PhotoUri")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(max)");
 
                     b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(max)");
 
                     b.Property<string>("Province")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(16)");
 
                     b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<int>("UserRole")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppUser");
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("DbUser");
                 });
 
             modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Product", b =>
@@ -83,7 +93,7 @@ namespace AgriEnergyConnectPlatform.Migrations
 
                     b.Property<string>("FarmerId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -108,7 +118,7 @@ namespace AgriEnergyConnectPlatform.Migrations
 
             modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Product", b =>
                 {
-                    b.HasOne("AgriEnergyConnectPlatform.Models.AppUser", "Farmer")
+                    b.HasOne("AgriEnergyConnectPlatform.Models.DbUser", "Farmer")
                         .WithMany()
                         .HasForeignKey("FarmerId")
                         .OnDelete(DeleteBehavior.Cascade)
