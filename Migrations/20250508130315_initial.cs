@@ -40,7 +40,7 @@ namespace AgriEnergyConnectPlatform.Migrations
                 table: "Product",
                 column: "FarmerId",
                 principalTable: "Farmer",
-                principalColumn: "Id");
+                principalColumn: "Uid");
         }
 
         /// <inheritdoc />
