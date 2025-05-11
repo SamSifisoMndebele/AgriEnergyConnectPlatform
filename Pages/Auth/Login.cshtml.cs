@@ -23,7 +23,7 @@ public class Login : PageModel
         if (Credential is not { Email: "sams.mndebele@gmail.com", Password: "Password" }) return Page();
         var appUser = new AppUser
         {
-            Uid = Guid.NewGuid().ToString(),
+            Id = Guid.NewGuid().ToString(),
             Email = Credential.Email,
             Role = Role.Farmer,
             Names = "Sam Sifiso",
@@ -37,7 +37,7 @@ public class Login : PageModel
         // Create Security Context
         var claims = new List<Claim>
         {
-            new("UID", appUser.Uid),
+            new("UID", appUser.Id),
             new(ClaimTypes.Email, appUser.Email),
             new(ClaimTypes.Role, appUser.Role.ToString()),
             new(ClaimTypes.Name, appUser.Names),

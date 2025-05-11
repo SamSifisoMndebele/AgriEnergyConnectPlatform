@@ -5,28 +5,28 @@ namespace AgriEnergyConnectPlatform.Models;
 
 public static class SeedData
 {
-    private static Farmer Former1 => new()
+    private static AppUser Former1 => new()
     {
         Names = "Sam",
-        LastName = "Mndebele"
+        Surname = "Mndebele"
     };
 
-    private static Farmer Former2 => new()
+    private static AppUser Former2 => new()
     {
         Names = "John",
-        LastName = "Doe"
+        Surname = "Doe"
     };
 
-    private static Farmer Former3 => new()
+    private static AppUser Former3 => new()
     {
         Names = "Jane",
-        LastName = "Doe"
+        Surname = "Doe"
     };
 
-    private static Farmer Former4 => new()
+    private static AppUser Former4 => new()
     {
         Names = "Sifiso",
-        LastName = "Smith"
+        Surname = "Smith"
     };
 
     public static void Initialize(IServiceProvider serviceProvider)
@@ -78,10 +78,10 @@ public static class SeedData
             );
             context.SaveChanges();
         }
-        else if (!context.Farmer.Any())
+        else if (!context.AppUser.Any())
         {
-            // DB is not seeded with Farmers
-            context.Farmer.AddRange(
+            // DB is not seeded with AppUsers
+            context.AppUser.AddRange(
                 Former1,
                 Former2,
                 Former3,

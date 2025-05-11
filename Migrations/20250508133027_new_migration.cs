@@ -29,7 +29,7 @@ namespace AgriEnergyConnectPlatform.Migrations
                 table: "Product",
                 column: "FarmerId",
                 principalTable: "Farmer",
-                principalColumn: "Uid",
+                principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
 
@@ -53,7 +53,7 @@ namespace AgriEnergyConnectPlatform.Migrations
                 table: "Product",
                 column: "FarmerId",
                 principalTable: "Farmer",
-                principalColumn: "Uid");
+                principalColumn: "Id");
         }
     }
 }

@@ -5,7 +5,7 @@ namespace AgriEnergyConnectPlatform.Models;
 
 public class AppUser
 {
-    public string Uid { get; set; }
+    public string Id { get; set; }
 
     [Required] public string Email { get; set; }
 

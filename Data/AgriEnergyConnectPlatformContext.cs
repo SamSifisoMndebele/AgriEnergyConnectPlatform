@@ -11,5 +11,5 @@ public class AgriEnergyConnectPlatformContext : DbContext
     }
 
     public DbSet<Product> Product { get; set; } = default!;
-    public DbSet<Farmer> Farmer { get; set; } = default!;
+    public DbSet<AppUser> AppUser { get; set; } = default!;
 }

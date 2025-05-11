@@ -24,11 +24,11 @@ namespace AgriEnergyConnectPlatform.Migrations
 
             modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Farmer", b =>
                 {
-                    b.Property<int>("Uid")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Uid"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -40,18 +40,18 @@ namespace AgriEnergyConnectPlatform.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("Uid");
+                    b.HasKey("Id");
 
                     b.ToTable("Farmer");
                 });
 
             modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Product", b =>
                 {
-                    b.Property<int>("Uid")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Uid"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -75,7 +75,7 @@ namespace AgriEnergyConnectPlatform.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.HasKey("Uid");
+                    b.HasKey("Id");
 
                     b.HasIndex("FarmerId");
 
