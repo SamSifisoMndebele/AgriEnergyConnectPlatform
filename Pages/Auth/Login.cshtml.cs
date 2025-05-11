@@ -28,9 +28,9 @@ public class Login : PageModel
             Role = Role.Farmer,
             Names = "Sam Sifiso",
             Surname = "Mndebele",
-            MobilePhone = "0721646430",
+            PhoneNumber = "0721646430",
             StreetAddress = "Stand 104 Clau-Clau",
-            StateOrProvince = "Mpumalanga",
+            Province = "Mpumalanga",
             Country = "South Africa",
             PostalCode = "1245"
         };
@@ -42,9 +42,9 @@ public class Login : PageModel
             new(ClaimTypes.Role, appUser.Role.ToString()),
             new(ClaimTypes.Name, appUser.Names),
             new(ClaimTypes.Surname, appUser.Surname),
-            new(ClaimTypes.MobilePhone, appUser.MobilePhone),
+            new(ClaimTypes.MobilePhone, appUser.PhoneNumber),
             new(ClaimTypes.StreetAddress, appUser.StreetAddress),
-            new(ClaimTypes.StateOrProvince, appUser.StateOrProvince),
+            new(ClaimTypes.StateOrProvince, appUser.Province),
             new(ClaimTypes.Country, appUser.Country),
             new(ClaimTypes.PostalCode, appUser.PostalCode),
             new("PhotoUrl", appUser.PhotoUri?.ToString() ?? string.Empty),

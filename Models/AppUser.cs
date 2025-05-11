@@ -11,19 +11,20 @@ public class AppUser
 
     [Required] public Role Role { get; set; }
 
-    [Required]
-    [DisplayName("First Names")]
+    [StringLength(30, ErrorMessage = "First Names cannot be longer than 30 characters.")]
+    [Required, DisplayName("First Names")]
     public string Names { get; set; }
 
+    [StringLength(20, ErrorMessage = "Surname cannot be longer than 20 characters.")]
     [Required] public string Surname { get; set; }
 
-    [Required]
-    [DisplayName("Phone Number")]
-    public string MobilePhone { get; set; }
+    [RegularExpression(@"^(0|\\+?27[ -]?)[5-9]\\d[ -]?\\d{3}[ -]?\\d{4}$", ErrorMessage = "Phone number is not valid")]
+    [Required, DisplayName("Phone Number")]
+    public string PhoneNumber { get; set; }
 
     [DisplayName("Street Address")] public string? StreetAddress { get; set; } = null;
-
-    [DisplayName("State Or Province")] public string? StateOrProvince { get; set; } = null;
+    
+    public string? Province { get; set; } = null;
 
     public string? Country { get; set; } = null;
 
