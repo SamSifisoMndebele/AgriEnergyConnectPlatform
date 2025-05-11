@@ -1,14 +1,16 @@
 ﻿using System.Security.Claims;
+using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using AgriEnergyConnectPlatform.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AgriEnergyConnectPlatform.Pages.Auth;
 
-public class Login : PageModel
+public class Login(AgriEnergyConnectPlatformContext context, ILogger<IndexModel> logger) : PageModel
 {
-    [BindProperty] public required PasswordCredential Credential { get; set; }
+    [BindProperty] public required CredentialPasswordLogin Credential { get; set; }
 
     public void OnGet()
     {
@@ -20,34 +22,39 @@ public class Login : PageModel
         // ModelState.AddModelError(string.Empty, "Invalid login attempt.");
 
         // Verify the user credentials
-        if (Credential is not { Email: "sams.mndebele@gmail.com", Password: "Password" }) return Page();
-        var appUser = new AppUser
+        
+        var users = from u in context.DbUser select u;
+        logger.LogDebug(users.ToString());
+        var appUser = users.FirstOrDefault(p => p.Email == Credential.Email);
+        logger.LogDebug(appUser?.ToString() ?? "null");
+        if (appUser == null)
         {
-            Id = Guid.NewGuid().ToString(),
-            Email = Credential.Email,
-            Role = Role.Farmer,
-            Names = "Sam Sifiso",
-            Surname = "Mndebele",
-            PhoneNumber = "0721646430",
-            StreetAddress = "Stand 104 Clau-Clau",
-            Province = "Mpumalanga",
-            Country = "South Africa",
-            PostalCode = "1245"
-        };
+            ModelState.AddModelError(
+                "Credential.Email", 
+                "No user with that email address.\n" +
+                "Please enter a valid email address or register a new account.");
+            return Page();
+        }
+        logger.LogInformation("User {Email} logged in.", appUser);
+        if (appUser.PasswordHash != Credential.Password)
+        {
+            ModelState.AddModelError("Credential.Password", "Incorrect password.");
+            return Page();
+        }
+        
         // Create Security Context
         var claims = new List<Claim>
         {
-            new("UID", appUser.Id),
+            new(MyClaimTypes.UserId, appUser.Id),
             new(ClaimTypes.Email, appUser.Email),
-            new(ClaimTypes.Role, appUser.Role.ToString()),
+            new(ClaimTypes.Role, appUser.UserRole.ToString()),
             new(ClaimTypes.Name, appUser.Names),
             new(ClaimTypes.Surname, appUser.Surname),
             new(ClaimTypes.MobilePhone, appUser.PhoneNumber),
-            new(ClaimTypes.StreetAddress, appUser.StreetAddress),
-            new(ClaimTypes.StateOrProvince, appUser.Province),
-            new(ClaimTypes.Country, appUser.Country),
-            new(ClaimTypes.PostalCode, appUser.PostalCode),
-            new("PhotoUrl", appUser.PhotoUri?.ToString() ?? string.Empty),
+            new(ClaimTypes.StreetAddress, appUser.StreetAddress ?? string.Empty),
+            new(ClaimTypes.StateOrProvince, appUser.Province ?? string.Empty),
+            new(MyClaimTypes.City, appUser.City ?? string.Empty),
+            new(ClaimTypes.PostalCode, appUser.PostalCode ?? string.Empty),
             new(ClaimTypes.IsPersistent, Credential.RememberMe.ToString())
         };
 
