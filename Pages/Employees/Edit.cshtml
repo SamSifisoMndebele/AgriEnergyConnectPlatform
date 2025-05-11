@@ -1,0 +1,90 @@
+@page
+@model AgriEnergyConnectPlatform.Pages.Employees.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>AppUser</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AppUser.Id" />
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="AppUser.Email" class="control-label"></label>
+                <input asp-for="AppUser.Email" class="form-control" />
+                <span asp-validation-for="AppUser.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="AppUser.Role" class="control-label"></label>
+                <select asp-for="AppUser.Role" class="form-control"></select>
+                <span asp-validation-for="AppUser.Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="AppUser.Names" class="control-label"></label>
+                <input asp-for="AppUser.Names" class="form-control" />
+                <span asp-validation-for="AppUser.Names" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="AppUser.Surname" class="control-label"></label>
+                <input asp-for="AppUser.Surname" class="form-control" />
+                <span asp-validation-for="AppUser.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="AppUser.PhoneNumber" class="control-label"></label>
+                <input asp-for="AppUser.PhoneNumber" class="form-control" />
+                <span asp-validation-for="AppUser.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="AppUser.StreetAddress" class="control-label"></label>
+                <input asp-for="AppUser.StreetAddress" class="form-control" />
+                <span asp-validation-for="AppUser.StreetAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="AppUser.Province" class="control-label"></label>
+                <input asp-for="AppUser.Province" class="form-control" />
+                <span asp-validation-for="AppUser.Province" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="AppUser.Country" class="control-label"></label>
+                <input asp-for="AppUser.Country" class="form-control" />
+                <span asp-validation-for="AppUser.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="AppUser.PostalCode" class="control-label"></label>
+                <input asp-for="AppUser.PostalCode" class="form-control" />
+                <span asp-validation-for="AppUser.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="AppUser.PhotoUri" class="control-label"></label>
+                <input asp-for="AppUser.PhotoUri" class="form-control" />
+                <span asp-validation-for="AppUser.PhotoUri" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
