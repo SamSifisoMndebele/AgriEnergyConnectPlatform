@@ -6,35 +6,30 @@ namespace AgriEnergyConnectPlatform.Models;
 public class AppUser
 {
     public string Uid { get; set; }
-    
+
+    [Required] public string Email { get; set; }
+
+    [Required] public Role Role { get; set; }
+
     [Required]
-    public string Email { get; set; }
-    [Required]
-    public Role Role { get; set; }
-    
-    [Required, DisplayName("First Names")]
+    [DisplayName("First Names")]
     public string Names { get; set; }
-    
+
+    [Required] public string Surname { get; set; }
+
     [Required]
-    public string Surname { get; set; }
-    
-    [Required, DisplayName("Phone Number")]
+    [DisplayName("Phone Number")]
     public string MobilePhone { get; set; }
-    
-    [DisplayName("Street Address")]
-    public string? StreetAddress { get; set; } = null;
-    
-    [DisplayName("State Or Province")]
-    public string? StateOrProvince { get; set; } = null;
-    
+
+    [DisplayName("Street Address")] public string? StreetAddress { get; set; } = null;
+
+    [DisplayName("State Or Province")] public string? StateOrProvince { get; set; } = null;
+
     public string? Country { get; set; } = null;
-    
-    [DisplayName("Postal Code")]
-    public string? PostalCode { get; set; } = null;
-    
-    [DisplayName("Photo")]
-    public Uri? PhotoUri { get; set; } = null;
-    
-    [DisplayName("Full Name")]
-    public string FullName => Names.Trim() + " " + Surname.Trim();
+
+    [DisplayName("Postal Code")] public string? PostalCode { get; set; } = null;
+
+    [DisplayName("Photo")] public Uri? PhotoUri { get; set; } = null;
+
+    [DisplayName("Full Name")] public string FullName => Names.Trim() + " " + Surname.Trim();
 }

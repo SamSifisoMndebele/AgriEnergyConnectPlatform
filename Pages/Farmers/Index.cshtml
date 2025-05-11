@@ -1,5 +1,5 @@
 @page "{search?}"
-@model AgriEnergyConnectPlatform.Pages.Farmers.IndexModel
+@model IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -17,31 +17,31 @@
         <select asp-for="Category" asp-items="Model.Categories">
             <option value="">All</option>
         </select>
-        <label>Name: <input type="text" asp-for="Search" /></label>
-        <input type="submit" value="Filter" />
+        <label>Name: <input type="text" asp-for="Search"/></label>
+        <input type="submit" value="Filter"/>
     </p>
 </form>
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].ProductionDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Rating)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product[0].Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product[0].ProductionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product[0].Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product[0].Rating)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
     @foreach (var item in Model.Product)

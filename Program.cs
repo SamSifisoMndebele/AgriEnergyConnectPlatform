@@ -1,12 +1,8 @@
 using System.Globalization;
-using AgriEnergyConnectPlatform;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
-using AgriEnergyConnectPlatform.Pages.Auth;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +15,9 @@ builder.Services.AddAuthentication(CookieAuthentication.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-        options.SlidingExpiration = true; 
-        options.Cookie.Name = CookieAuthentication.CookiePrefix + CookieAuthentication.AuthenticationScheme; 
-        options.LoginPath = CookieAuthentication.LoginPath; 
+        options.SlidingExpiration = true;
+        options.Cookie.Name = CookieAuthentication.CookiePrefix + CookieAuthentication.AuthenticationScheme;
+        options.LoginPath = CookieAuthentication.LoginPath;
         options.LogoutPath = CookieAuthentication.LogoutPath;
         options.AccessDeniedPath = CookieAuthentication.AccessDeniedPath;
         options.ReturnUrlParameter = CookieAuthentication.ReturnUrlParameter;
@@ -41,7 +37,8 @@ builder.Services.AddRazorPages(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope()) {
+using (var scope = app.Services.CreateScope())
+{
     SeedData.Initialize(scope.ServiceProvider);
 }
 

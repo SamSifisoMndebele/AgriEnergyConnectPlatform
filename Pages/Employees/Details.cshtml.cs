@@ -1,43 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AgriEnergyConnectPlatform.Data;
+using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using AgriEnergyConnectPlatform.Data;
-using AgriEnergyConnectPlatform.Models;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees
+namespace AgriEnergyConnectPlatform.Pages.Employees;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly AgriEnergyConnectPlatformContext _context;
+
+    public DetailsModel(AgriEnergyConnectPlatformContext context)
     {
-        private readonly AgriEnergyConnectPlatform.Data.AgriEnergyConnectPlatformContext _context;
+        _context = context;
+    }
 
-        public DetailsModel(AgriEnergyConnectPlatform.Data.AgriEnergyConnectPlatformContext context)
+    public Farmer Farmer { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var farmer = await _context.Farmer.FirstOrDefaultAsync(m => m.Id == id);
+
+        if (farmer is not null)
         {
-            _context = context;
+            Farmer = farmer;
+
+            return Page();
         }
 
-        public Farmer Farmer { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var farmer = await _context.Farmer.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (farmer is not null)
-            {
-                Farmer = farmer;
-
-                return Page();
-            }
-
-            return NotFound();
-        }
+        return NotFound();
     }
 }

@@ -1,62 +1,50 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AgriEnergyConnectPlatform.Data;
+using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using AgriEnergyConnectPlatform.Data;
-using AgriEnergyConnectPlatform.Models;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees
+namespace AgriEnergyConnectPlatform.Pages.Employees;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly AgriEnergyConnectPlatformContext _context;
+
+    public DeleteModel(AgriEnergyConnectPlatformContext context)
     {
-        private readonly AgriEnergyConnectPlatform.Data.AgriEnergyConnectPlatformContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(AgriEnergyConnectPlatform.Data.AgriEnergyConnectPlatformContext context)
+    [BindProperty] public Farmer Farmer { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var farmer = await _context.Farmer.FirstOrDefaultAsync(m => m.Id == id);
+
+        if (farmer is not null)
         {
-            _context = context;
+            Farmer = farmer;
+
+            return Page();
         }
 
-        [BindProperty]
-        public Farmer Farmer { get; set; } = default!;
+        return NotFound();
+    }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var farmer = await _context.Farmer.FindAsync(id);
+        if (farmer != null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var farmer = await _context.Farmer.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (farmer is not null)
-            {
-                Farmer = farmer;
-
-                return Page();
-            }
-
-            return NotFound();
+            Farmer = farmer;
+            _context.Farmer.Remove(Farmer);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var farmer = await _context.Farmer.FindAsync(id);
-            if (farmer != null)
-            {
-                Farmer = farmer;
-                _context.Farmer.Remove(Farmer);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

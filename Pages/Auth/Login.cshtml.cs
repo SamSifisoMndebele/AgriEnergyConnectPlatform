@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -10,22 +8,20 @@ namespace AgriEnergyConnectPlatform.Pages.Auth;
 
 public class Login : PageModel
 {
-    [BindProperty]
-    public required PasswordCredential Credential { get; set; }
-    
+    [BindProperty] public required PasswordCredential Credential { get; set; }
+
     public void OnGet()
     {
-        
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid) return Page();
         // ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        
+
         // Verify the user credentials
         if (Credential is not { Email: "sams.mndebele@gmail.com", Password: "Password" }) return Page();
-        var appUser = new AppUser()
+        var appUser = new AppUser
         {
             Uid = Guid.NewGuid().ToString(),
             Email = Credential.Email,
@@ -52,13 +48,13 @@ public class Login : PageModel
             new(ClaimTypes.Country, appUser.Country),
             new(ClaimTypes.PostalCode, appUser.PostalCode),
             new("PhotoUrl", appUser.PhotoUri?.ToString() ?? string.Empty),
-            new(ClaimTypes.IsPersistent, Credential.RememberMe.ToString()),
+            new(ClaimTypes.IsPersistent, Credential.RememberMe.ToString())
         };
 
         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthentication.AuthenticationScheme);
         var authProperties = new AuthenticationProperties
         {
-            IsPersistent = Credential.RememberMe,
+            IsPersistent = Credential.RememberMe
 
             //AllowRefresh = <bool>,
             // Refreshing the authentication session should be allowed.

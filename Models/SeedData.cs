@@ -5,15 +5,39 @@ namespace AgriEnergyConnectPlatform.Models;
 
 public static class SeedData
 {
+    private static Farmer Former1 => new()
+    {
+        Names = "Sam",
+        LastName = "Mndebele"
+    };
+
+    private static Farmer Former2 => new()
+    {
+        Names = "John",
+        LastName = "Doe"
+    };
+
+    private static Farmer Former3 => new()
+    {
+        Names = "Jane",
+        LastName = "Doe"
+    };
+
+    private static Farmer Former4 => new()
+    {
+        Names = "Sifiso",
+        LastName = "Smith"
+    };
+
     public static void Initialize(IServiceProvider serviceProvider)
     {
-        using var context = new AgriEnergyConnectPlatformContext(serviceProvider.GetRequiredService<DbContextOptions<AgriEnergyConnectPlatformContext>>());
-        if (context?.Product == null)
+        using var context =
+            new AgriEnergyConnectPlatformContext(serviceProvider
+                .GetRequiredService<DbContextOptions<AgriEnergyConnectPlatformContext>>());
+        if (context?.Product == null) throw new ArgumentNullException(nameof(serviceProvider));
+        if (!context.Product.Any())
         {
-            throw new ArgumentNullException(nameof(serviceProvider));
-        }
-        if (!context.Product.Any()) 
-        {   // DB is not seeded with Products
+            // DB is not seeded with Products
             context.Product.AddRange(
                 new Product
                 {
@@ -65,25 +89,4 @@ public static class SeedData
             );
         }
     }
-
-    private static Farmer Former1 => new Farmer
-    {
-        Names = "Sam",
-        LastName = "Mndebele",
-    };
-    private static Farmer Former2 => new Farmer
-    {
-        Names = "John",
-        LastName = "Doe",
-    };
-    private static Farmer Former3 => new Farmer
-    {
-        Names = "Jane",
-        LastName = "Doe",
-    };
-    private static Farmer Former4 => new Farmer
-    {
-        Names = "Sifiso",
-        LastName = "Smith",
-    };
 }

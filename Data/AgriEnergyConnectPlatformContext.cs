@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace AgriEnergyConnectPlatform.Data
+namespace AgriEnergyConnectPlatform.Data;
+
+public class AgriEnergyConnectPlatformContext : DbContext
 {
-    public class AgriEnergyConnectPlatformContext : DbContext
+    public AgriEnergyConnectPlatformContext(DbContextOptions<AgriEnergyConnectPlatformContext> options)
+        : base(options)
     {
-        public AgriEnergyConnectPlatformContext (DbContextOptions<AgriEnergyConnectPlatformContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<AgriEnergyConnectPlatform.Models.Product> Product { get; set; } = default!;
-        public DbSet<AgriEnergyConnectPlatform.Models.Farmer> Farmer { get; set; } = default!;
     }
+
+    public DbSet<Product> Product { get; set; } = default!;
+    public DbSet<Farmer> Farmer { get; set; } = default!;
 }

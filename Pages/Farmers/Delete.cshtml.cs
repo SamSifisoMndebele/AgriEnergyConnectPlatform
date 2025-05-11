@@ -1,62 +1,50 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AgriEnergyConnectPlatform.Data;
+using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using AgriEnergyConnectPlatform.Data;
-using AgriEnergyConnectPlatform.Models;
 
-namespace AgriEnergyConnectPlatform.Pages.Farmers
+namespace AgriEnergyConnectPlatform.Pages.Farmers;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly AgriEnergyConnectPlatformContext _context;
+
+    public DeleteModel(AgriEnergyConnectPlatformContext context)
     {
-        private readonly AgriEnergyConnectPlatform.Data.AgriEnergyConnectPlatformContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(AgriEnergyConnectPlatform.Data.AgriEnergyConnectPlatformContext context)
+    [BindProperty] public Product Product { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
+
+        if (product is not null)
         {
-            _context = context;
+            Product = product;
+
+            return Page();
         }
 
-        [BindProperty]
-        public Product Product { get; set; } = default!;
+        return NotFound();
+    }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var product = await _context.Product.FindAsync(id);
+        if (product != null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (product is not null)
-            {
-                Product = product;
-
-                return Page();
-            }
-
-            return NotFound();
+            Product = product;
+            _context.Product.Remove(Product);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Product.FindAsync(id);
-            if (product != null)
-            {
-                Product = product;
-                _context.Product.Remove(Product);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

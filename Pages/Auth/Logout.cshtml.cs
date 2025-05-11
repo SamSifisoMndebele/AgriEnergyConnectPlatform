@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;

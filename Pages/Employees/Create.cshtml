@@ -1,14 +1,14 @@
 @page
-@model AgriEnergyConnectPlatform.Pages.Employees.CreateModel
+@model CreateModel
 
 @{
-ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
 
 <h4>Farmer</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
@@ -37,5 +37,5 @@ ViewData["Title"] = "Create";
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
