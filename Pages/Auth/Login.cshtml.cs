@@ -11,7 +11,7 @@ namespace AgriEnergyConnectPlatform.Pages.Auth;
 public class Login : PageModel
 {
     [BindProperty]
-    public PasswordCredential Credential { get; set; }
+    public required PasswordCredential Credential { get; set; }
     
     public void OnGet()
     {
@@ -24,52 +24,67 @@ public class Login : PageModel
         // ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         
         // Verify the user credentials
-        if (Credential is { Email: "user@mail.com", Password: "Password" })
+        if (Credential is not { Email: "sams.mndebele@gmail.com", Password: "Password" }) return Page();
+        var appUser = new AppUser()
         {
-            // Create Security Context
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, "user@mail.com"),
-                new Claim(ClaimTypes.Email, "user@mail.com"),
-                new Claim("FullName", "Sam Sifiso Mndebele"),
-                new Claim(ClaimTypes.Role, "Administrator"),
-            };
-            
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthentication.AuthenticationScheme);
-            var authProperties = new AuthenticationProperties
-            {
-                //AllowRefresh = <bool>,
-                // Refreshing the authentication session should be allowed.
+            Uid = Guid.NewGuid().ToString(),
+            Email = Credential.Email,
+            Role = Role.Farmer,
+            Names = "Sam Sifiso",
+            Surname = "Mndebele",
+            MobilePhone = "0721646430",
+            StreetAddress = "Stand 104 Clau-Clau",
+            StateOrProvince = "Mpumalanga",
+            Country = "South Africa",
+            PostalCode = "1245"
+        };
+        // Create Security Context
+        var claims = new List<Claim>
+        {
+            new("UID", appUser.Uid),
+            new(ClaimTypes.Email, appUser.Email),
+            new(ClaimTypes.Role, appUser.Role.ToString()),
+            new(ClaimTypes.Name, appUser.Names),
+            new(ClaimTypes.Surname, appUser.Surname),
+            new(ClaimTypes.MobilePhone, appUser.MobilePhone),
+            new(ClaimTypes.StreetAddress, appUser.StreetAddress),
+            new(ClaimTypes.StateOrProvince, appUser.StateOrProvince),
+            new(ClaimTypes.Country, appUser.Country),
+            new(ClaimTypes.PostalCode, appUser.PostalCode),
+            new("PhotoUrl", appUser.PhotoUri?.ToString() ?? string.Empty),
+            new(ClaimTypes.IsPersistent, Credential.RememberMe.ToString()),
+        };
 
-                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                // The time at which the authentication ticket expires. A 
-                // value set here overrides the ExpireTimeSpan option of 
-                // CookieAuthenticationOptions set with AddCookie.
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthentication.AuthenticationScheme);
+        var authProperties = new AuthenticationProperties
+        {
+            IsPersistent = Credential.RememberMe,
 
-                //IsPersistent = true,
-                // Whether the authentication session is persisted across 
-                // multiple requests. When used with cookies, controls
-                // whether the cookie's lifetime is absolute (matching the
-                // lifetime of the authentication ticket) or session-based.
+            //AllowRefresh = <bool>,
+            // Refreshing the authentication session should be allowed.
 
-                //IssuedUtc = <DateTimeOffset>,
-                // The time at which the authentication ticket was issued.
+            //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+            // The time at which the authentication ticket expires. A 
+            // value set here overrides the ExpireTimeSpan option of 
+            // CookieAuthenticationOptions set with AddCookie.
 
-                //RedirectUri = <string>
-                // The full path or absolute URI to be used as an http 
-                // redirect response value.
-            };
-            
-            await HttpContext.SignInAsync(
-                CookieAuthentication.AuthenticationScheme, 
-                new ClaimsPrincipal(claimsIdentity), 
-                authProperties);
-            
-            return RedirectToPage("/Index");
-            // return LocalRedirect(Url.GetLocalUrl(returnUrl));
-        }
+            //IssuedUtc = <DateTimeOffset>,
+            // The time at which the authentication ticket was issued.
+
+            //RedirectUri = <string>
+            // The full path or absolute URI to be used as an http 
+            // redirect response value.
+        };
+
+        await HttpContext.SignInAsync(
+            CookieAuthentication.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            authProperties);
+
+        return RedirectToPage("/Index");
+
+        // return LocalRedirect(Url.GetLocalUrl(returnUrl));
 
         // Something failed. Redisplay the form.
-        return Page();
     }
 }
