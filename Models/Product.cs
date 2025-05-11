@@ -29,5 +29,5 @@ public class Product
 
     [Range(0, 10)] public int Rating { get; set; } = 0;
 
-    public AppUser Farmer { get; set; }
+    public DbUser Farmer { get; set; }
 }

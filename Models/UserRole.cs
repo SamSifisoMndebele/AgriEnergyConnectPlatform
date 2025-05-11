@@ -1,7 +1,7 @@
 ﻿namespace AgriEnergyConnectPlatform.Models;
 
-public enum Role
+public enum UserRole
 {
-    Admin,
+    Employee,
     Farmer
 }

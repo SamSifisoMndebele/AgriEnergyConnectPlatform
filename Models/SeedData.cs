@@ -1,32 +1,64 @@
 ﻿using AgriEnergyConnectPlatform.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using static Microsoft.Extensions.Options.Options;
 
 namespace AgriEnergyConnectPlatform.Models;
 
 public static class SeedData
 {
-    private static AppUser Former1 => new()
+    // private static PasswordHasher<DbUser> PasswordHasher;
+    private static DbUser Employee1 => new()
     {
-        Names = "Sam",
-        Surname = "Mndebele"
+        Id = Guid.NewGuid().ToString(),
+        Email = "sams.mndebele@gmail.com",
+        // PasswordHash = PasswordHasher.HashPassword(Former1, "Password"),
+        PasswordHash = "Password",
+        UserRole = UserRole.Employee,
+        Names = "Sam Sifiso",
+        Surname = "Mndebele",
+        PhoneNumber = "0721646430",
+        StreetAddress = "Stand 104 Clau-Clau",
+        City = "Mbombela",
+        Province = "Mpumalanga",
+        PostalCode = "1245"
     };
 
-    private static AppUser Former2 => new()
+    private static DbUser Farmer1 => new()
     {
+        Id = Guid.NewGuid().ToString(),
+        Email = "john.doe@example.com",
+        // PasswordHash = PasswordHasher.HashPassword(Former2, "Password"),
+        PasswordHash = "Password",
+        UserRole = UserRole.Farmer,
         Names = "John",
-        Surname = "Doe"
+        Surname = "Doe",
+        PhoneNumber = "0721646430",
     };
 
-    private static AppUser Former3 => new()
+    private static DbUser Employee2 => new()
     {
+        Id = Guid.NewGuid().ToString(),
+        Email = "jane.doe@example.com",
+        // PasswordHash = PasswordHasher.HashPassword(Former3, "Password"),
+        PasswordHash = "Password",
+        UserRole = UserRole.Employee,
         Names = "Jane",
-        Surname = "Doe"
+        Surname = "Doe",
+        PhoneNumber = "0721646430",
     };
 
-    private static AppUser Former4 => new()
+    private static DbUser Farmer2 => new()
     {
+        Id = Guid.NewGuid().ToString(),
+        Email = "sifiso.smith@example.com",
+        // PasswordHash = PasswordHasher.HashPassword(Former4, "Password"),
+        PasswordHash = "Password",
+        UserRole = UserRole.Farmer,
         Names = "Sifiso",
-        Surname = "Smith"
+        Surname = "Smith",
+        PhoneNumber = "0721646430",
     };
 
     public static void Initialize(IServiceProvider serviceProvider)
@@ -34,7 +66,17 @@ public static class SeedData
         using var context =
             new AgriEnergyConnectPlatformContext(serviceProvider
                 .GetRequiredService<DbContextOptions<AgriEnergyConnectPlatformContext>>());
-        if (context?.Product == null) throw new ArgumentNullException(nameof(serviceProvider));
+        // if (context.Product == null || context.DbUser == null) throw new ArgumentNullException(nameof(serviceProvider));
+        if (!context.DbUser.Any())
+        {
+            // DB is not seeded with AppUsers
+            context.DbUser.AddRange(
+                Employee1,
+                Employee2,
+                Farmer1,
+                Farmer2
+            );
+        } 
         if (!context.Product.Any())
         {
             // DB is not seeded with Products
@@ -46,7 +88,7 @@ public static class SeedData
                     Category = "Romantic Comedy",
                     Price = 7.99M,
                     Rating = 2,
-                    Farmer = Former2
+                    Farmer = Farmer1
                 },
                 new Product
                 {
@@ -55,7 +97,7 @@ public static class SeedData
                     Category = "Comedy",
                     Price = 8.99M,
                     Rating = 4,
-                    Farmer = Former1
+                    Farmer = Farmer2
                 },
                 new Product
                 {
@@ -64,7 +106,7 @@ public static class SeedData
                     Category = "Comedy",
                     Price = 9.99M,
                     Rating = 8,
-                    Farmer = Former1
+                    Farmer = Farmer2
                 },
                 new Product
                 {
@@ -73,20 +115,10 @@ public static class SeedData
                     Category = "Western",
                     Price = 3.99M,
                     Rating = 1,
-                    Farmer = Former4
+                    Farmer = Farmer1
                 }
             );
             context.SaveChanges();
-        }
-        else if (!context.AppUser.Any())
-        {
-            // DB is not seeded with AppUsers
-            context.AppUser.AddRange(
-                Former1,
-                Former2,
-                Former3,
-                Former4
-            );
         }
     }
 }

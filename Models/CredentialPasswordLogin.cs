@@ -3,15 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AgriEnergyConnectPlatform.Models;
 
-public class PasswordCredential
+public class CredentialPasswordLogin
 {
     [Required] [EmailAddress] public string Email { get; set; }
 
-    [Required]
-    [DataType(DataType.Password)]
+    [Required, DataType(DataType.Password)]
     public string Password { get; set; }
 
-    [Required]
-    [DisplayName("Remember Me")]
+    [Required, DisplayName("Remember Me")]
     public bool RememberMe { get; set; }
 }
