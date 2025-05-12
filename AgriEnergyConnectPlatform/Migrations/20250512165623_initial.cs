@@ -15,16 +15,16 @@ namespace AgriEnergyConnectPlatform.Migrations
                 name: "AppUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<string>(type: "char(36)", nullable: false),
+                    Email = table.Column<string>(type: "varchar(256)", nullable: false),
                     PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
                     UserRole = table.Column<int>(type: "INTEGER", nullable: false),
-                    Names = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Surname = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "TEXT", maxLength: 16, nullable: false),
-                    StreetAddress = table.Column<string>(type: "TEXT", maxLength: 128, nullable: true),
+                    Names = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
+                    Surname = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false),
+                    StreetAddress = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
                     City = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
-                    Province = table.Column<string>(type: "TEXT", maxLength: 16, nullable: true),
+                    Province = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: true),
                     PostalCode = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -39,11 +39,15 @@ namespace AgriEnergyConnectPlatform.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 60, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 128, nullable: true),
                     Category = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    Availability = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
                     ProductionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     Rating = table.Column<int>(type: "INTEGER", nullable: false),
-                    FarmerId = table.Column<string>(type: "TEXT", nullable: false)
+                    FarmerId = table.Column<string>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {

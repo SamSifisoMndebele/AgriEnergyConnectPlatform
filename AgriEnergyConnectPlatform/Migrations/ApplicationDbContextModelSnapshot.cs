@@ -86,6 +86,7 @@ namespace AgriEnergyConnectPlatform.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FarmerId")
