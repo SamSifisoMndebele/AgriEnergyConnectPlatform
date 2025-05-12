@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriEnergyConnectPlatform.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250512165623_initial")]
+    [Migration("20250512173755_initial")]
     partial class initial
     {
         /// <inheritdoc />
