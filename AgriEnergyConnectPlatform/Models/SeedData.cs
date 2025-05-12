@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using static Microsoft.Extensions.Options.Options;
+using static BCrypt.Net.BCrypt;
 
 namespace AgriEnergyConnectPlatform.Models;
 
 public static class SeedData
 {
-    private static readonly PasswordHasher<AppUser> PasswordHasher = new();
 
     private static readonly AppUser Admin = new()
     {
         Id = Guid.NewGuid().ToString(),
         Email = "admin@mail.com",
-        PasswordHash = PasswordHasher.HashPassword(null, "Admin@123"),
+        PasswordHash = HashPassword("Admin@123"),
         UserRole = UserRole.Employee,
         Names = "A",
         Surname = "Admin",
@@ -25,7 +25,7 @@ public static class SeedData
     {
         Id = Guid.NewGuid().ToString(),
         Email = "jane.doe@example.com",
-        PasswordHash = PasswordHasher.HashPassword(null, "Password@123"),
+        PasswordHash = HashPassword("Password@123"),
         UserRole = UserRole.Farmer,
         Names = "Jane",
         Surname = "Doe",

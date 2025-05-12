@@ -3,117 +3,161 @@
 ## Overview
 AgriEnergyConnect Platform is a web application built with ASP.NET Core that facilitates connections between the agriculture and energy sectors. It provides a secure user management system with role-based access control and a modern user interface.
 
-## Features
+## Development Environment Setup
 
-### Authentication & Authorization
-- User registration and login system
-- Role-based access control (Farmers, Employees)
-- Secure password handling
-- Remember me functionality
-- Email-based user identification
+### Prerequisites
+1. **Required Software:**
+   - .NET 9.0 SDK or later (download from [.NET Downloads](https://dotnet.microsoft.com/download))
+   - Visual Studio 2022 or JetBrains Rider (recommended IDEs)
+   - Git for version control
+   - SQLite (included in project)
 
-### User Management
-- Comprehensive user profile management
-- Multiple user roles support
-- Address and contact information tracking
-- Employee-specific features for managing farmer accounts
+2. **System Requirements:**
+   - Windows 10/11, macOS, or Linux
+   - Minimum 8GB RAM (16GB recommended)
+   - 10GB free disk space
 
-### User Interface
-- Modern, responsive design
-- Clean and intuitive forms
-- Background styling with blur effects
-- Mobile-friendly layout
-- Custom styling for better user experience
+### Installation Steps
+1. **Clone the Repository:**
+   ```bash
+   git clone [repository-url]
+   cd AgriEnergyConnectPlatform
+   ```
+
+2. **Setup Development Environment:**
+   ```bash
+   dotnet restore
+   dotnet tool install --global dotnet-ef
+   ```
+
+3. **Database Setup:**
+   ```bash
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+   ```
+
+4. **Configure Application Settings:**
+   - Copy `appsettings.Example.json` to `appsettings.Development.json`
+   - Update connection strings and any environment-specific settings
+
+## Building and Running
+
+### Local Development
+1. **Build the Project:**
+   ```bash
+   dotnet build
+   ```
+
+2. **Run the Application:**
+   ```bash
+   dotnet run
+   ```
+   Access the application at:
+   - HTTPS: `https://localhost:7132`
+   - HTTP: `http://localhost:5297`
+
+### Docker Deployment
+1. **Build Docker Image:**
+   ```bash
+   docker build -t agrienergy-connect .
+   ```
+
+2. **Run Container:**
+   ```bash
+   docker run -p 5000:80 agrienergy-connect
+   ```
+
+## System Architecture and Features
+
+### Core Components
+1. **Authentication System**
+   - User registration and login
+   - Role-based access control
+   - Secure password management
+   - Email verification
+
+2. **User Management**
+   - Profile management
+   - Role assignment
+   - Contact information tracking
+
+3. **Interface Components**
+   - Responsive design
+   - Mobile-friendly layout
+   - Custom styling
+
+### User Roles and Permissions
+
+#### Administrator Role
+- Full system access
+- User management capabilities
+- System configuration access
+- Analytics and reporting
+
+#### Farmer Role
+- Profile management
+- Resource access
+- Communication features
+- Personal data management
+
+## Testing and Development
 
 ### Test Accounts
-The system comes with two pre-configured test accounts for development and testing purposes:
-
 #### Administrator Account
 - Email: admin@mail.com
 - Password: Admin@123
 - Role: Employee
-- Access: Full administrative privileges
 
 #### Farmer Test Account
 - Email: jane.doe@example.com
 - Password: Password@123
 - Role: Farmer
-- Access: Farmer-specific features
 
-**Note**: These accounts are for testing purposes only. In a production environment, you should remove or change these credentials.
+**Note:** These credentials are for development only. Change them in production.
 
-## Technology Stack
+### Technology Stack
+- **Backend:** .NET 9.0, ASP.NET Core, Entity Framework Core
+- **Database:** SQLite
+- **Frontend:** Razor Pages, Bootstrap, Custom CSS, JavaScript
+- **Security:** Cookie authentication, Claims-based authorization
 
-### Backend
-- .NET 9.0
-- ASP.NET Core
-- Entity Framework Core
-- SQLite Database
+## Troubleshooting
 
-### Frontend
-- Razor Pages
-- Bootstrap
-- Custom CSS
-- JavaScript
+### Common Issues
+1. **Database Connection:**
+   - Verify connection string in appsettings.json
+   - Ensure SQLite file exists and has proper permissions
 
-### Security
-- Cookie-based authentication
-- Claims-based authorization
-- Form validation
-- Password confirmation
-- Terms acceptance requirement
+2. **Build Errors:**
+   - Run `dotnet restore` to refresh dependencies
+   - Clear solution and rebuild
+   - Verify .NET SDK version matches project requirements
 
+### Support
+For technical support:
+- Create an issue in the repository
+- Contact the development team
+- Consult the documentation
 
-## Setup and Installation
+## Contributing
+1. Fork the repository
+2. Create a feature branch
+3. Commit changes
+4. Submit pull request
+5. Follow coding standards
 
-### Prerequisites
-- .NET 9.0 SDK or later
-- A text editor or IDE (recommended: Visual Studio or JetBrains Rider)
-- SQLite (included in project)
+## Security Considerations
+- Regular security updates
+- Secure password handling
+- Data encryption
+- Access control implementation
+- Input validation
 
-### Local Development
-1. Clone the repository: 
-2. Navigate to the project directory: `AgriEnergyConnectPlatform`
-3. Restore dependencies: 
-4. Apply database migrations: ```run command: 
-    dotnet ef migrations migration_name;
-    dotnet ef database update   
-       ```
-5. Run the application:
+## License
+[Add license information]
 
-
-The application will be available at `https://localhost:5001` or `http://localhost:5000`
-
-### Docker Support
-The project includes Docker support through the included Dockerfile.
-
-## Configuration
-- `appsettings.json` - Production configuration
-- `appsettings.Development.json` - Development configuration
-
-## Database Schema
-The application uses SQLite with Entity Framework Core, featuring:
-- User accounts with role-based access
-- Secure password storage
-- Contact and address information
-- Unique email constraints
-
-## Development Guidelines
-- Follow C# coding conventions
-- Use Razor Pages for views
-- Implement proper validation
-- Maintain responsive design
-- Document new features
-
-## Security Features
-- Password confirmation on registration
-- Email uniqueness validation
-- Role-based access control
-- Secure cookie authentication
-- Form validation and sanitization
-
-## Authors
-[Add authors information]
+## Authors and Acknowledgments
+[Add contributors and acknowledgments]
 
 ---
-For more information about specific features or development guidelines, please consult the project documentation or contact the development team.
+For detailed technical documentation, API references, and contribution guidelines, please refer to the project wiki.

@@ -5,6 +5,8 @@ using AgriEnergyConnectPlatform.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using BCrypt.Net;
+using static BCrypt.Net.BCrypt;
 
 namespace AgriEnergyConnectPlatform.Pages.Auth;
 
@@ -30,9 +32,7 @@ public class Login(ApplicationDbContext context, ILogger<IndexModel> logger) : P
         // Verify the user credentials
         
         var users = from u in context.AppUsers select u;
-        logger.LogDebug(users.ToString());
         var appUser = users.FirstOrDefault(p => p.Email == Credential.Email);
-        logger.LogDebug(appUser?.ToString() ?? "null");
         if (appUser == null)
         {
             ModelState.AddModelError(
@@ -41,8 +41,7 @@ public class Login(ApplicationDbContext context, ILogger<IndexModel> logger) : P
                 "Please enter a valid email address or register a new account.");
             return Page();
         }
-        logger.LogInformation("User {Email} logged in.", appUser);
-        if (appUser.PasswordHash != Credential.Password)
+        if (!Verify(Credential.Password, appUser.PasswordHash))
         {
             ModelState.AddModelError("Credential.Password", "Incorrect password.");
             return Page();

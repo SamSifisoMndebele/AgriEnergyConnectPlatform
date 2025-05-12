@@ -5,6 +5,7 @@ using AgriEnergyConnectPlatform.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using static BCrypt.Net.BCrypt;
 
 namespace AgriEnergyConnectPlatform.Pages.Auth;
 
@@ -50,7 +51,7 @@ public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) 
         {
             Id = Guid.NewGuid().ToString(),
             Email = Credential.Email,
-            PasswordHash = Credential.Password, // todo: Encrypt password
+            PasswordHash = HashPassword(Credential.Password),
             UserRole = Credential.UserRole,
             Names = Credential.Names,
             Surname = Credential.Surname,
