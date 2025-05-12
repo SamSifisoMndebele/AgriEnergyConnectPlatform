@@ -9,51 +9,26 @@ namespace AgriEnergyConnectPlatform.Models;
 public static class SeedData
 {
     private static readonly PasswordHasher<AppUser> PasswordHasher = new();
-    private static AppUser Employee1 => new()
+
+    private static readonly AppUser Admin = new()
     {
         Id = Guid.NewGuid().ToString(),
-        Email = "sams.mndebele@gmail.com",
-        PasswordHash = PasswordHasher.HashPassword(null, "Password@123"),
+        Email = "admin@mail.com",
+        PasswordHash = PasswordHasher.HashPassword(null, "Admin@123"),
         UserRole = UserRole.Employee,
-        Names = "Sam Sifiso",
-        Surname = "Mndebele",
-        PhoneNumber = "0721646430",
-        StreetAddress = "Stand 104 Clau-Clau",
-        City = "Mbombela",
-        Province = "Mpumalanga",
-        PostalCode = "1245"
+        Names = "A",
+        Surname = "Admin",
+        PhoneNumber = "0000000000",
     };
 
-    private static AppUser Farmer1 => new()
-    {
-        Id = Guid.NewGuid().ToString(),
-        Email = "john.doe@example.com",
-        PasswordHash = PasswordHasher.HashPassword(null, "Password@123"),
-        UserRole = UserRole.Farmer,
-        Names = "John",
-        Surname = "Doe",
-        PhoneNumber = "0721646430",
-    };
-
-    private static AppUser Employee2 => new()
+    private static readonly AppUser Farmer1 = new()
     {
         Id = Guid.NewGuid().ToString(),
         Email = "jane.doe@example.com",
         PasswordHash = PasswordHasher.HashPassword(null, "Password@123"),
-        UserRole = UserRole.Employee,
+        UserRole = UserRole.Farmer,
         Names = "Jane",
         Surname = "Doe",
-        PhoneNumber = "0721646430",
-    };
-
-    private static AppUser Farmer2 => new()
-    {
-        Id = Guid.NewGuid().ToString(),
-        Email = "sifiso.smith@example.com",
-        PasswordHash = PasswordHasher.HashPassword(null, "Password"),
-        UserRole = UserRole.Farmer,
-        Names = "Sifiso",
-        Surname = "Smith",
         PhoneNumber = "0721646430",
     };
 
@@ -67,10 +42,8 @@ public static class SeedData
         {
             // DB is not seeded with AppUsers
             context.AppUsers.AddRange(
-                Employee1,
-                Employee2,
-                Farmer1,
-                Farmer2
+                Admin,
+                Farmer1
             );
         } 
         if (!context.Products.Any())
@@ -82,42 +55,54 @@ public static class SeedData
                     Name = "Fresh Sweet Corn",
                     Description = "Locally grown sweet corn, picked at peak ripeness",
                     Price = 49.99m,
-                    Quantity = 200
+                    Quantity = 200,
+                    Category = "Vegetables",
+                    Farmer = Farmer1,
                 },
                 new Product
                 {
                     Name = "Premium Tomatoes",
                     Description = "Vine-ripened tomatoes grown in controlled conditions",
                     Price = 79.99m,
-                    Quantity = 150
+                    Quantity = 150,
+                    Category = "Vegetables",
+                    Farmer = Farmer1,
                 },
                 new Product
                 {
                     Name = "Organic Potatoes",
                     Description = "Chemical-free potatoes grown in rich soil",
                     Price = 89.99m,
-                    Quantity = 300
+                    Quantity = 300,
+                    Category = "Root Vegetables",
+                    Farmer = Farmer1,
                 },
                 new Product
                 {
                     Name = "Fresh Cabbage",
                     Description = "Large, crisp cabbage heads perfect for cooking",
                     Price = 34.99m,
-                    Quantity = 100
+                    Quantity = 100,
+                    Category = "Leafy Greens",
+                    Farmer = Farmer1,
                 },
                 new Product
                 {
                     Name = "Green Beans",
                     Description = "Tender, fresh green beans picked daily",
                     Price = 59.99m,
-                    Quantity = 120
+                    Quantity = 120,
+                    Category = "Vegetables",
+                    Farmer = Farmer1,
                 },
                 new Product
                 {
                     Name = "Butternut Squash",
                     Description = "Sweet and nutty butternut squash, locally grown",
                     Price = 44.99m,
-                    Quantity = 80
+                    Quantity = 80,
+                    Category = "Vegetables",
+                    Farmer = Farmer1,
                 }
             );
             context.SaveChanges();

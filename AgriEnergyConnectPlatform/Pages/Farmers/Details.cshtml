@@ -130,8 +130,8 @@
             @foreach (var item in Model.Products)
             {
                 <div class="card mb-3">
-                    <h3 class="card-header">R @Html.DisplayFor(modelItem => item.Price)</h3>
-                    <img src="@item.ImageUrl" class="card-img-top" alt="Product Image">
+                    <h3 class="card-header">@Html.DisplayFor(modelItem => item.Price)</h3>
+                    @* <img src="@item.ImageUrl" class="card-img-top" alt="Product Image"> *@
                     <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Quantity: @Html.DisplayFor(modelItem => item.Quantity)</h6>
