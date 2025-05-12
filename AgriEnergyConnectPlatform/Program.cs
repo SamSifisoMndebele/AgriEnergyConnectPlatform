@@ -35,7 +35,9 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddRazorPages(options =>
 {
-    options.Conventions.AuthorizeFolder("/Farmers", nameof(UserRole.Farmer));
+    options.Conventions.AuthorizeFolder("/Dashboard");
+    options.Conventions.AuthorizeFolder("/Products", nameof(UserRole.Farmer));
+    options.Conventions.AuthorizeFolder("/Farmers", nameof(UserRole.Employee));
     options.Conventions.AuthorizeFolder("/Employees", nameof(UserRole.Employee));
 });
 

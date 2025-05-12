@@ -12,8 +12,14 @@ public class Login(ApplicationDbContext context, ILogger<IndexModel> logger) : P
 {
     [BindProperty] public required CredentialPasswordLogin Credential { get; set; }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        if (User.Identity is { IsAuthenticated: true })
+        {
+            return RedirectToPage("/Dashboard/Index");
+        }
+
+        return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
@@ -84,7 +90,7 @@ public class Login(ApplicationDbContext context, ILogger<IndexModel> logger) : P
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
 
-        return RedirectToPage("/Index");
+        return RedirectToPage("/Dashboard/Index");
 
         // return LocalRedirect(Url.GetLocalUrl(returnUrl));
 

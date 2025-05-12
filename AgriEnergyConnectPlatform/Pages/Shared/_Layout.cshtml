@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using AgriEnergyConnectPlatform.Models
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -8,9 +10,83 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/AgriEnergyConnectPlatform.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #00572B;
+        }
+        .sidebar {
+            height: 100vh;
+            width: 300px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(to bottom, #067c40 48%, #4FA577 90%);
+            color: #bad92f;
+            padding-top: 20px;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            left: 200px; 
+            height: 50px;
+            background-color: #0000;
+            color: black;
+            font-size: 20px;
+            display: flex;
+            justify-content: flex-end; 
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000; 
+        }
+
+        .top-bar2 a {
+            color: #3bb433;
+            text-decoration: none;
+            padding: 10px;
+            margin-left: 10px;
+        }
+        
+        .top-bar a {
+            color: #3bb433;
+            text-decoration: none;
+            padding: 10px;
+            margin-left: 10px;
+        }
+
+        .top-bar a:hover {
+            color: #3bb433;
+        }
+        
+        .sidebar .navbar-brand {
+            text-align: center;
+            margin-bottom: 20px; 
+        }
+
+        .sidebar a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .sidebar a:hover {
+            background-color: white;
+            color: green;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-<header>
+@*<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-page="/Index">Agri-Energy Connect Platform</a>
@@ -24,7 +100,7 @@
                         <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Farmers/Index">Farmers</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Producs/Index">Producs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Employees/Index">Employees</a>
@@ -37,18 +113,59 @@
             <partial name="_LoginPartial"/>
         </div>
     </nav>
-</header>
-<div class="container">
+</header>*@
+@*<div class="container">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
-</div>
-
-<footer class="border-top footer text-muted">
+</div>*@
+@*<footer class="border-top footer text-muted">
     <div class="container">
         &copy; 2025 - Agri-Energy Connect Platform - <a asp-area="" asp-page="/Privacy">Privacy</a>
     </div>
-</footer>
+</footer>*@
+
+<div class="sidebar">
+    <div class="brand-wrapper">
+        <a class="navbar-brand" asp-area="" asp-page="/Index">
+            <img src="/res/logo.jpg" alt="AgriEnergy-Connect" style="height: 250px;" />
+        </a>
+    </div>
+    <div class="nav-links">
+        <a class="nav-link active" asp-area="" asp-page="/Index"><i class="fas fa-home"></i> Home</a>
+        <br/>
+        @{
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            if (userRole != null)
+            {
+                <a class="nav-link active" asp-area="" asp-page="/Products/Index"><i class="fa-solid fa-hat-cowboy"></i>Products</a>
+                <br/>
+            }
+        }
+        @{
+            if (userRole is nameof(UserRole.Farmer))
+            {
+                <a class="nav-link active" asp-area="" asp-page="/Farmers/Index"><i class="fa-solid fa-hat-cowboy"></i>Farmers</a>
+                <br/>
+            }
+        }
+    </div>   
+</div>
+
+<div class="top-bar">
+    <br />
+    <div class="nav-links">
+        <partial name="_LoginPartial"/>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+</div>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

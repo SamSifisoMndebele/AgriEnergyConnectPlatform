@@ -12,9 +12,14 @@ public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) 
 {
     [BindProperty] public required CredentialRegister Credential { get; set; }
     
-    public void OnGet()
+    public IActionResult OnGet()
     {
-        
+        if (User.Identity is { IsAuthenticated: true })
+        {
+            return RedirectToPage("/Dashboard/Index");
+        }
+
+        return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
@@ -99,6 +104,6 @@ public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) 
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
         
-        return RedirectToPage("/Index");
+        return RedirectToPage("/Dashboard/Index");
     }
 }

@@ -1,10 +1,115 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    body {
+        background-image: url('/res/background.png');
+        background-position: 300px;
+        background-size: 1920px 1008px;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+    }
+    .title {
+        font-size: 70px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: black;
+    }
+
+        .title span.green {
+            color: #4FA577;
+        }
+
+    .paragraph {
+        font-size: 26px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+    }
+
+    p{
+        font-size: 26px;
+    }
+
+    .trusted-by {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: black;
+        font-weight: 700;
+    }
+
+    .providers {
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+    }
+
+        .providers img {
+            width: 150px; 
+            height: auto;
+        }
+
+    .mission-title {
+        font-size: 45px;
+        color: #3bb433;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight:700;
+        text-align: left;
+    }
+
+    .fade-in {
+        opacity: 0;
+        transition: opacity 1.5s ease-in;
+    }
+
+</style>
+
+<div class="container">
+    <br />
+    <br />
+    <br />
+    <div class="title">
+        Transforming South Africa with <span class="green">Collaboration</span>
+    </div>
+    <div class="paragraph">
+        At AgriConnect, we believe that collaboration is the key to driving positive change and innovation in South Africa's agricultural sector. Our mission is to create a platform where farmers, employees, and industry stakeholders can connect, share knowledge, and work together towards a sustainable and prosperous future. Join us on our journey to transform the landscape of agriculture through collective effort and mutual support.
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="trusted-by">
+        Trusted by local providers
+    </div>
+    <br />
+    <div class="providers">
+        <img src="https://companieslogo.com/img/orig/MTN.JO-d1d53d13.png?t=1657172637" alt="Provider 1" class="fade-in">
+        <img src="https://www.onedirectory.com/images/logo-customer-parmalat.svg" alt="Provider 2" class="fade-in">
+        <img src="https://www.onedirectory.com/images/logo-customer-newmont.svg" alt="Provider 3" class="fade-in">
+        <img src="https://www.onedirectory.com/images/logo-customer-rheinmetall.svg" alt="Provider 4" class="fade-in">
+        <img src="https://www.onedirectory.com/images/logo-customer-westfield.svg" alt="Provider 5" class="fade-in">
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="mission-title">
+        We're on a mission to help South Africa<br />
+        improve agriculture access
+    </div>
+    <div class="mission-paragraph">
+        Our goal at AgriConnect is to break down barriers in the agricultural sector, providing access to essential resources and knowledge for everyone involved. By fostering an environment of inclusivity and support, we aim to enhance productivity, sustainability, and innovation. We are dedicated to empowering local farmers, promoting sustainable practices, and ensuring that every individual has the opportunity to thrive in the agricultural community.
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const images = document.querySelectorAll('.fade-in');
+        images.forEach(img => {
+            img.classList.add('fade-in-visible');
+        });
+    });
+</script>
