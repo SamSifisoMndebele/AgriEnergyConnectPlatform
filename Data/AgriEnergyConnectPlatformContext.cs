@@ -10,6 +10,6 @@ public class AgriEnergyConnectPlatformContext : DbContext
     {
     }
 
-    public DbSet<Product> Product { get; set; } = default!;
-    public DbSet<DbUser> DbUser { get; set; } = default!;
+    public DbSet<Product> Products { get; set; } = default!;
+    public DbSet<AppUser> AppUsers { get; set; } = default!;
 }

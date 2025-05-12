@@ -22,7 +22,7 @@ namespace AgriEnergyConnectPlatform.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.DbUser", b =>
+            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.AppUsers", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("char(36)");
@@ -73,10 +73,10 @@ namespace AgriEnergyConnectPlatform.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("DbUser");
+                    b.ToTable("AppUsers");
                 });
 
-            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Product", b =>
+            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Products", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,12 +111,12 @@ namespace AgriEnergyConnectPlatform.Migrations
 
                     b.HasIndex("FarmerId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Product", b =>
+            modelBuilder.Entity("AgriEnergyConnectPlatform.Models.Products", b =>
                 {
-                    b.HasOne("AgriEnergyConnectPlatform.Models.DbUser", "Farmer")
+                    b.HasOne("AgriEnergyConnectPlatform.Models.AppUsers", "Farmer")
                         .WithMany()
                         .HasForeignKey("FarmerId")
                         .OnDelete(DeleteBehavior.Cascade)

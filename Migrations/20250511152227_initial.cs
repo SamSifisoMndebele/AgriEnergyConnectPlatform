@@ -12,7 +12,7 @@ namespace AgriEnergyConnectPlatform.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DbUser",
+                name: "AppUsers",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "char(36)", nullable: false),
@@ -33,7 +33,7 @@ namespace AgriEnergyConnectPlatform.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -51,20 +51,20 @@ namespace AgriEnergyConnectPlatform.Migrations
                     table.ForeignKey(
                         name: "FK_Product_DbUser_FarmerId",
                         column: x => x.FarmerId,
-                        principalTable: "DbUser",
+                        principalTable: "AppUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DbUser_Email",
-                table: "DbUser",
+                table: "AppUsers",
                 column: "Email",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_FarmerId",
-                table: "Product",
+                table: "Products",
                 column: "FarmerId");
         }
 
@@ -72,10 +72,10 @@ namespace AgriEnergyConnectPlatform.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "DbUser");
+                name: "AppUsers");
         }
     }
 }
