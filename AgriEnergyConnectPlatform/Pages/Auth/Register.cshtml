@@ -1,0 +1,99 @@
+﻿@page
+@using AgriEnergyConnectPlatform.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model Register
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+<hr/>
+<div class="col">
+    <form method="post">
+        <p>Register into the app.</p>
+        <hr>
+        
+        <div class="row">
+            <div class="col-md-5">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Credential.Email"></label>
+                    <input asp-for="Credential.Email" class="form-control">
+                    <span asp-validation-for="Credential.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.Password"></label>
+                    <input asp-for="Credential.Password" class="form-control">
+                    <span asp-validation-for="Credential.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.PasswordConfirm"></label>
+                    <input asp-for="Credential.PasswordConfirm" class="form-control">
+                    <span asp-validation-for="Credential.PasswordConfirm" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.Names"></label>
+                    <input asp-for="Credential.Names" class="form-control">
+                    <span asp-validation-for="Credential.Names" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.Surname"></label>
+                    <input asp-for="Credential.Surname" class="form-control">
+                    <span asp-validation-for="Credential.Surname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.PhoneNumber"></label>
+                    <input asp-for="Credential.PhoneNumber" class="form-control">
+                    <span asp-validation-for="Credential.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-check mt-1 mb-2">
+                    <input type="checkbox" asp-for="Credential.Terms" class="form-check-input">
+                    <label asp-for="Credential.Terms" class="form-check-label"></label>
+                    <span asp-validation-for="Credential.Terms" class="text-danger"></span>
+                </div>
+                <div class="form-check mt-1 mb-2">
+                    <input type="checkbox" asp-for="Credential.RememberMe" class="form-check-input">
+                    <label asp-for="Credential.RememberMe" class="form-check-label"></label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Credential.StreetAddress"></label>
+                    <textarea asp-for="Credential.StreetAddress" class="form-control"></textarea>
+                    <span asp-validation-for="Credential.StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.City"></label>
+                    <input asp-for="Credential.City" class="form-control">
+                    <span asp-validation-for="Credential.City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.Province"></label>
+                    <input asp-for="Credential.Province" class="form-control">
+                    <span asp-validation-for="Credential.Province" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.PostalCode"></label>
+                    <input asp-for="Credential.PostalCode" class="form-control">
+                    <span asp-validation-for="Credential.PostalCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Credential.UserRole"></label>
+                    <select asp-for="Credential.UserRole" asp-items="Html.GetEnumSelectList<UserRole>()" class="form-control"></select>
+                    <span asp-validation-for="Credential.UserRole" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-primary">Register</button>
+        </div>
+    </form>
+    <div class="mt-3">
+        <p>Already have an account? <a asp-page="/Auth/Login">Login here</a></p>
+    </div>
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

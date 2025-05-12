@@ -1,19 +1,45 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
+using AgriEnergyConnectPlatform.Models;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// var connectionString = builder.Configuration.GetConnectionString("AgriEnergyConnectPlatformContext")
+//                        ?? throw new InvalidOperationException("Connection string not found.");
+// builder.Services.AddDbContext<AgriEnergyConnectPlatformContext>(options => options.UseSqlServer(connectionString));
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddAuthentication(CookieAuthentication.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.SlidingExpiration = true;
+        options.Cookie.Name = CookieAuthentication.CookiePrefix + CookieAuthentication.AuthenticationScheme;
+        options.LoginPath = CookieAuthentication.LoginPath;
+        options.LogoutPath = CookieAuthentication.LogoutPath;
+        options.AccessDeniedPath = CookieAuthentication.AccessDeniedPath;
+        options.ReturnUrlParameter = CookieAuthentication.ReturnUrlParameter;
+        // options.EventsType = typeof(CustomCookieAuthenticationEvents);
+    });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(nameof(UserRole.Farmer), policy => policy.RequireRole(nameof(UserRole.Employee), nameof(UserRole.Farmer)));
+    options.AddPolicy(nameof(UserRole.Employee), policy => policy.RequireRole(nameof(UserRole.Employee)));
+});
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages();
+// builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Farmers", nameof(UserRole.Farmer));
+    options.Conventions.AuthorizeFolder("/Employees", nameof(UserRole.Employee));
+});
 
 var app = builder.Build();
 
@@ -21,6 +47,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -34,9 +61,18 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapStaticAssets();
-app.MapRazorPages()
-    .WithStaticAssets();
+app.MapRazorPages().WithStaticAssets();
+
+var defaultCulture = new CultureInfo("en-US");
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(defaultCulture),
+    SupportedCultures = new List<CultureInfo> { defaultCulture },
+    SupportedUICultures = new List<CultureInfo> { defaultCulture }
+};
+app.UseRequestLocalization(localizationOptions);
 
 app.Run();
