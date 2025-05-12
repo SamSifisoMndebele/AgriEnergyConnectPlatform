@@ -9,7 +9,7 @@ using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees
+namespace AgriEnergyConnectPlatform.Pages.Farmers
 {
     [Authorize(Roles = nameof(UserRole.Employee))]
     public class DeleteModel : PageModel
@@ -43,7 +43,7 @@ namespace AgriEnergyConnectPlatform.Pages.Employees
             return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(string? id)
         {
             if (id == null)
             {

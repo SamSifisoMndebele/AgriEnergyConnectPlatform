@@ -9,28 +9,27 @@ using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees;
+namespace AgriEnergyConnectPlatform.Pages.Farmers;
 
 [Authorize(Roles = nameof(UserRole.Farmer) + "," + nameof(UserRole.Employee))]
-public class DetailsModel : PageModel
+public class DetailsModel(ApplicationDbContext context) : PageModel
 {
-    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
-
-    public DetailsModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public AppUser AppUser { get; set; } = default!;
+    public IList<Product> Products { get;set; } = default!;
 
-    public async Task<IActionResult> OnGetAsync(string id)
+    public async Task<IActionResult> OnGetAsync(string? id)
     {
         if (id == null)
         {
             return NotFound();
         }
 
-        var appuser = await _context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
+        var appuser = await context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
+        
+        var products = from p in context.Products
+            select p;
+        products = products.Where(p => p.Farmer.Id == id);
+        Products = await products.ToListAsync();
 
         if (appuser is not null)
         {

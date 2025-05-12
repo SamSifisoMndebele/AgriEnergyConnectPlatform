@@ -10,17 +10,22 @@ public class Product
     [StringLength(60, MinimumLength = 3)]
     [Required]
     public string? Name { get; set; }
+    public string? Description { get; set; }
 
     [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")]
     [StringLength(30)]
     [Required]
     public string Category { get; set; }
+    
+    public bool Availability { get; set; }
+    public string? ImageUrl { get; set; }
 
     // [Range(typeof(DateTime), "1/1/2000", "1/1/2050")]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     [Display(Name = "Production Date")]
     [DataType(DataType.Date)]
     public DateTime ProductionDate { get; set; }
+    public int? Quantity { get; set; }
 
     [Range(0, 1000000)]
     [DataType(DataType.Currency)]

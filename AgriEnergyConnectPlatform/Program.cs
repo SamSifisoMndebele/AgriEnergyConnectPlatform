@@ -38,7 +38,7 @@ builder.Services.AddRazorPages(options =>
     // options.Conventions.AuthorizeFolder("/Products");
     // options.Conventions.AuthorizeFolder("/Products", nameof(UserRole.Farmer));
     // options.Conventions.AuthorizeFolder("/Farmers", nameof(UserRole.Employee));
-    // options.Conventions.AuthorizeFolder("/Employees", nameof(UserRole.Employee));
+    // options.Conventions.AuthorizeFolder("/Farmers", nameof(UserRole.Employee));
 });
 
 var app = builder.Build();

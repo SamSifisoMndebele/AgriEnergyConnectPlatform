@@ -10,29 +10,22 @@ using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees;
+namespace AgriEnergyConnectPlatform.Pages.Farmers;
 
-[Authorize(Roles = nameof(UserRole.Employee))]
-public class EditModel : PageModel
+[Authorize(Roles = nameof(UserRole.Farmer) + "," + nameof(UserRole.Employee))]
+public class EditModel(ApplicationDbContext context) : PageModel
 {
-    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
-
-    public EditModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     [BindProperty]
     public AppUser AppUser { get; set; } = default!;
 
-    public async Task<IActionResult> OnGetAsync(string id)
+    public async Task<IActionResult> OnGetAsync(string? id)
     {
         if (id == null)
         {
             return NotFound();
         }
 
-        var appuser =  await _context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
+        var appuser =  await context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
         if (appuser == null)
         {
             return NotFound();
@@ -50,11 +43,11 @@ public class EditModel : PageModel
             return Page();
         }
 
-        _context.Attach(AppUser).State = EntityState.Modified;
+        context.Attach(AppUser).State = EntityState.Modified;
 
         try
         {
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -62,10 +55,8 @@ public class EditModel : PageModel
             {
                 return NotFound();
             }
-            else
-            {
-                throw;
-            }
+
+            throw;
         }
 
         return RedirectToPage("./Index");
@@ -73,6 +64,6 @@ public class EditModel : PageModel
 
     private bool AppUserExists(string id)
     {
-        return _context.AppUsers.Any(e => e.Id == id);
+        return context.AppUsers.Any(e => e.Id == id);
     }
 }

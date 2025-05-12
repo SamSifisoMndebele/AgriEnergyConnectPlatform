@@ -77,14 +77,23 @@ namespace AgriEnergyConnectPlatform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Availability")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FarmerId")
                         .IsRequired()
                         .HasColumnType("char(36)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -96,6 +105,9 @@ namespace AgriEnergyConnectPlatform.Migrations
 
                     b.Property<DateTime>("ProductionDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Rating")
                         .HasColumnType("INTEGER");

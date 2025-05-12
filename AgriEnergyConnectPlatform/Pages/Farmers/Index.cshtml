@@ -1,23 +1,63 @@
 @page
-@model AgriEnergyConnectPlatform.Pages.Employees.IndexModel
+@using AgriEnergyConnectPlatform.Models
+@model IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Farmers and Employees";
+}
+<style>
+    .card {
+        width: 300px;
+        max-height: 700px;
+        background-color: rgba(255, 255, 255);
+        backdrop-filter: blur(2px);
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .card-body {
+        max-height: 400px;
+        color: black;
+    }
+
+    .card-img-top {
+        max-height: 400px;
+        object-fit: cover;
+    }
+
+    h1 {
+        padding-top: 64px;
+        color: darkorange;
+        font-weight:700;
+        font-size:50px;
+    }
+
+    h4 {
+        color: yellowgreen;
+        font-weight: 700;
+        font-size: 30px;
+    }
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+</style>
+
+<h1>Farmers and Employees</h1>
+
+@if (User.IsInRole(nameof(UserRole.Employee)))
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.AppUser[0].Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].PasswordHash)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AppUser[0].UserRole)
@@ -53,9 +93,6 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PasswordHash)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.UserRole)
             </td>
             <td>
@@ -81,8 +118,11 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                @if (User.IsInRole(nameof(UserRole.Employee)))
+                {
+                    <span>|</span> <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                }
             </td>
         </tr>
 }

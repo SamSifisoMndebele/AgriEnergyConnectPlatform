@@ -8,7 +8,7 @@
     <title>@ViewData["Title"] - Agri-Energy Connect Platform</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AgriEnergyConnectPlatform.styles.css" asp-append-version="true"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -24,22 +24,23 @@
             background-image: linear-gradient(to bottom, #067c40 48%, #4FA577 90%);
             color: #bad92f;
             padding-top: 20px;
+            transition: 0.3s;
         }
 
         .top-bar {
             position: fixed;
             top: 30px;
             right: 30px;
-            left: 200px; 
+            left: 200px;
             height: 50px;
             background-color: #0000;
             color: black;
             font-size: 20px;
             display: flex;
-            justify-content: flex-end; 
+            justify-content: flex-end;
             align-items: center;
             padding: 0 20px;
-            z-index: 1000; 
+            z-index: 1000;
         }
 
         .top-bar2 a {
@@ -48,7 +49,7 @@
             padding: 10px;
             margin-left: 10px;
         }
-        
+
         .top-bar a {
             color: #3bb433;
             text-decoration: none;
@@ -59,10 +60,10 @@
         .top-bar a:hover {
             color: #3bb433;
         }
-        
+
         .sidebar .navbar-brand {
             text-align: center;
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
         }
 
         .sidebar a {
@@ -80,9 +81,52 @@
         }
 
         .content {
-            margin-left: 250px;
+            margin-left: 300px;
             padding: 20px;
         }
+
+        @@media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding-top: 10px;
+            }
+    
+            .top-bar {
+                position: relative;
+                left: 0;
+                right: 0;
+                top: 0;
+                margin-bottom: 20px;
+            }
+    
+            .content {
+                margin-left: 0;
+                padding: 10px;
+            }
+    
+            .sidebar .navbar-brand img {
+                height: 150px !important;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .top-bar {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+
+            .sidebar a {
+                font-size: 16px;
+                padding: 8px 10px;
+            }
+
+            .content {
+                padding: 5px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -103,7 +147,7 @@
                         <a class="nav-link text-dark" asp-area="" asp-page="/Producs/Index">Producs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Employees/Index">Employees</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Farmers/Index">Farmers</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
@@ -138,12 +182,12 @@
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
             if (userRole != null)
             {
-                <a class="nav-link active" asp-area="" asp-page="/Products/Index"><i class="fa-solid fa-hat-cowboy"></i>Products</a>
+                <a class="nav-link active" asp-area="" asp-page="/Products/Index"><i class="fa-solid fa-box-open"></i>Products</a>
                 <br/>
             }
         }
         @{
-            if (userRole is nameof(UserRole.Farmer))
+            if (userRole is nameof(UserRole.Employee))
             {
                 <a class="nav-link active" asp-area="" asp-page="/Farmers/Index"><i class="fa-solid fa-hat-cowboy"></i>Farmers</a>
                 <br/>

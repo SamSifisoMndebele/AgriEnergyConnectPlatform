@@ -9,22 +9,15 @@ using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees;
+namespace AgriEnergyConnectPlatform.Pages.Farmers;
 
 [Authorize(Roles = nameof(UserRole.Farmer) + "," + nameof(UserRole.Employee))]
-public class IndexModel : PageModel
+public class IndexModel(ApplicationDbContext context) : PageModel
 {
-    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
-
-    public IndexModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public IList<AppUser> AppUser { get;set; } = default!;
 
     public async Task OnGetAsync()
     {
-        AppUser = await _context.AppUsers.ToListAsync();
+        AppUser = await context.AppUsers.ToListAsync();
     }
 }

@@ -19,7 +19,7 @@ public class AppUser
     [Required] 
     public string PasswordHash { get; set; }
 
-    [Required] 
+    [Required, DisplayName("User Role")] 
     public UserRole UserRole { get; set; }
 
     [StringLength(128, ErrorMessage = "First Names cannot be longer than 128 characters.")]
@@ -32,9 +32,8 @@ public class AppUser
     [Required] public string Surname { get; set; }
 
     [StringLength(16, ErrorMessage = "Phone number cannot be longer than 16 characters.")]
-    [RegularExpression(@"^(0|\\+?27[ -]?)[5-9]\\d[ -]?\\d{3}[ -]?\\d{4}$", ErrorMessage = "Phone number is not valid")]
     [Column(TypeName = "varchar(16)")]
-    [Required, DisplayName("Phone Number")]
+    [Required, DisplayName("Phone Number"), DataType(DataType.PhoneNumber)]
     public string PhoneNumber { get; set; }
 
     [StringLength(128, ErrorMessage = "Street Address cannot be longer than 128 characters.")]
