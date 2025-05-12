@@ -17,7 +17,7 @@ AgriEnergyConnect Platform is a web application built with ASP.NET Core that fac
    - Minimum 8GB RAM (16GB recommended)
    - 10GB free disk space
 
-### Installation Steps
+### Installation Steps jnkm
 1. **Clone the Repository:**
    ```bash
    git clone [repository-url]
