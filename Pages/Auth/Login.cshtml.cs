@@ -23,7 +23,7 @@ public class Login(AgriEnergyConnectPlatformContext context, ILogger<IndexModel>
 
         // Verify the user credentials
         
-        var users = from u in context.DbUser select u;
+        var users = from u in context.AppUsers select u;
         logger.LogDebug(users.ToString());
         var appUser = users.FirstOrDefault(p => p.Email == Credential.Email);
         logger.LogDebug(appUser?.ToString() ?? "null");

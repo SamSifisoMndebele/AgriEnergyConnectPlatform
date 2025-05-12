@@ -31,7 +31,7 @@ public class Register(AgriEnergyConnectPlatformContext context, ILogger<IndexMod
             ModelState.AddModelError("Credential.Terms", "You must agree to the terms and conditions.");
             return Page();
         }
-        var users = from u in context.DbUser select u;
+        var users = from u in context.AppUsers select u;
         if (users.Any(p => p.Email == Credential.Email))
         {
             ModelState.AddModelError(
@@ -41,7 +41,7 @@ public class Register(AgriEnergyConnectPlatformContext context, ILogger<IndexMod
             return Page();
         }
 
-        var appUser = context.DbUser.Add(new()
+        var appUser = context.AppUsers.Add(new()
         {
             Id = Guid.NewGuid().ToString(),
             Email = Credential.Email,
