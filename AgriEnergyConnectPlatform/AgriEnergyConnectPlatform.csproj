@@ -34,7 +34,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\Producs\Create.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\Producs\Delete.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\Producs\Details.cshtml" />

@@ -16,7 +16,7 @@ public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) 
     {
         if (User.Identity is { IsAuthenticated: true })
         {
-            return RedirectToPage("/Dashboard/Index");
+            return RedirectToPage("/Products/Index");
         }
 
         return Page();
@@ -104,6 +104,6 @@ public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) 
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
         
-        return RedirectToPage("/Dashboard/Index");
+        return RedirectToPage("/Products/Index");
     }
 }

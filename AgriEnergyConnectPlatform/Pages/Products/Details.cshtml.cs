@@ -9,36 +9,35 @@ using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Products
+namespace AgriEnergyConnectPlatform.Pages.Products;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
+
+    public DetailsModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
     {
-        private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DetailsModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
+    public Product Product { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
-        }
-
-        public Product Product { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (product is not null)
-            {
-                Product = product;
-
-                return Page();
-            }
-
             return NotFound();
         }
+
+        var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+
+        if (product is not null)
+        {
+            Product = product;
+
+            return Page();
+        }
+
+        return NotFound();
     }
 }

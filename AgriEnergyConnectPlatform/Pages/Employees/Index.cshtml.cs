@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyConnectPlatform.Pages.Employees;
 
+[Authorize(Roles = nameof(UserRole.Farmer) + "," + nameof(UserRole.Employee))]
 public class IndexModel : PageModel
 {
     private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;

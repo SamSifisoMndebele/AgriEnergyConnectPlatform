@@ -8,70 +8,71 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees
+namespace AgriEnergyConnectPlatform.Pages.Employees;
+
+[Authorize(Roles = nameof(UserRole.Employee))]
+public class EditModel : PageModel
 {
-    public class EditModel : PageModel
-    {
-        private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
+    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
 
-        public EditModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
+    public EditModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    [BindProperty]
+    public AppUser AppUser { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(string id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public AppUser AppUser { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(string id)
+        var appuser =  await _context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
+        if (appuser == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        AppUser = appuser;
+        return Page();
+    }
 
-            var appuser =  await _context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
-            if (appuser == null)
-            {
-                return NotFound();
-            }
-            AppUser = appuser;
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        _context.Attach(AppUser).State = EntityState.Modified;
+
+        try
         {
-            if (!ModelState.IsValid)
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!AppUserExists(AppUser.Id))
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(AppUser).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AppUserExists(AppUser.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
         }
 
-        private bool AppUserExists(string id)
-        {
-            return _context.AppUsers.Any(e => e.Id == id);
-        }
+        return RedirectToPage("./Index");
+    }
+
+    private bool AppUserExists(string id)
+    {
+        return _context.AppUsers.Any(e => e.Id == id);
     }
 }

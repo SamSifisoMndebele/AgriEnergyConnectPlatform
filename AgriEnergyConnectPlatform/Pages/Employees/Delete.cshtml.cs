@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyConnectPlatform.Pages.Employees
 {
+    [Authorize(Roles = nameof(UserRole.Employee))]
     public class DeleteModel : PageModel
     {
         private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;

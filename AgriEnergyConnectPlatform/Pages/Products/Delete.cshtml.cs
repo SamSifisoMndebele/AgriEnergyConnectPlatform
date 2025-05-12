@@ -9,49 +9,48 @@ using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Products
+namespace AgriEnergyConnectPlatform.Pages.Products;
+
+[Authorize(Roles = nameof(UserRole.Farmer))]
+public class DeleteModel(ApplicationDbContext context) : PageModel
 {
-    [Authorize(Roles = nameof(UserRole.Farmer))]
-    public class DeleteModel(ApplicationDbContext context) : PageModel
+    [BindProperty]
+    public Product Product { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        [BindProperty]
-        public Product Product { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (id == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await context.Products.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (product is not null)
-            {
-                Product = product;
-
-                return Page();
-            }
-
             return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        var product = await context.Products.FirstOrDefaultAsync(m => m.Id == id);
+
+        if (product is not null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            Product = product;
 
-            var product = await context.Products.FindAsync(id);
-            if (product != null)
-            {
-                Product = product;
-                context.Products.Remove(Product);
-                await context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
+            return Page();
         }
+
+        return NotFound();
+    }
+
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var product = await context.Products.FindAsync(id);
+        if (product != null)
+        {
+            Product = product;
+            context.Products.Remove(Product);
+            await context.SaveChangesAsync();
+        }
+
+        return RedirectToPage("./Index");
     }
 }

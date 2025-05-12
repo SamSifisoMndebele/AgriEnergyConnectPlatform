@@ -16,7 +16,7 @@ public class Login(ApplicationDbContext context, ILogger<IndexModel> logger) : P
     {
         if (User.Identity is { IsAuthenticated: true })
         {
-            return RedirectToPage("/Dashboard/Index");
+            return RedirectToPage("/Products/Index");
         }
 
         return Page();
@@ -90,7 +90,7 @@ public class Login(ApplicationDbContext context, ILogger<IndexModel> logger) : P
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
 
-        return RedirectToPage("/Dashboard/Index");
+        return RedirectToPage("/Products/Index");
 
         // return LocalRedirect(Url.GetLocalUrl(returnUrl));
 

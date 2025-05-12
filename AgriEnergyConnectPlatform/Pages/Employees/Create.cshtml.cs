@@ -7,38 +7,39 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees
+namespace AgriEnergyConnectPlatform.Pages.Employees;
+
+[Authorize(Roles = nameof(UserRole.Employee))]
+public class CreateModel : PageModel
 {
-    public class CreateModel : PageModel
+    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
+
+    public CreateModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
     {
-        private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public CreateModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+    public IActionResult OnGet()
+    {
+        return Page();
+    }
 
-        public IActionResult OnGet()
+    [BindProperty]
+    public AppUser AppUser { get; set; } = default!;
+
+    // For more information, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        [BindProperty]
-        public AppUser AppUser { get; set; } = default!;
+        _context.AppUsers.Add(AppUser);
+        await _context.SaveChangesAsync();
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.AppUsers.Add(AppUser);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }
