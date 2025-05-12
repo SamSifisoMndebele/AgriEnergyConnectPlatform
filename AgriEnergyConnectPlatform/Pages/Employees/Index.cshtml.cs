@@ -7,23 +7,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace AgriEnergyConnectPlatform.Pages.Employees
+namespace AgriEnergyConnectPlatform.Pages.Employees;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
+
+    public IndexModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
     {
-        private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public IndexModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+    public IList<AppUser> AppUser { get;set; } = default!;
 
-        public IList<AppUser> AppUser { get;set; } = default!;
-
-        public async Task OnGetAsync()
-        {
-            AppUser = await _context.AppUsers.ToListAsync();
-        }
+    public async Task OnGetAsync()
+    {
+        AppUser = await _context.AppUsers.ToListAsync();
     }
 }
