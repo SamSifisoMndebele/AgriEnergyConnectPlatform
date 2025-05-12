@@ -18,9 +18,9 @@ public class Product
     [StringLength(30)]
     [Required]
     public string Category { get; set; }
-    
-    public bool Availability { get; set; }
-    public string? ImageUrl { get; set; }
+
+    [Required] public bool Availability { get; set; } = true;
+    public string? ImageUrl { get; set; } = null;
 
     // [Range(typeof(DateTime), "1/1/2000", "1/1/2050")]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

@@ -8,13 +8,12 @@ namespace AgriEnergyConnectPlatform.Models;
 
 public static class SeedData
 {
-    // private static PasswordHasher<AppUsers> PasswordHasher;
+    private static readonly PasswordHasher<AppUser> PasswordHasher = new();
     private static AppUser Employee1 => new()
     {
         Id = Guid.NewGuid().ToString(),
         Email = "sams.mndebele@gmail.com",
-        // PasswordHash = PasswordHasher.HashPassword(Former1, "Password"),
-        PasswordHash = "Password",
+        PasswordHash = PasswordHasher.HashPassword(null, "Password@123"),
         UserRole = UserRole.Employee,
         Names = "Sam Sifiso",
         Surname = "Mndebele",
@@ -29,8 +28,7 @@ public static class SeedData
     {
         Id = Guid.NewGuid().ToString(),
         Email = "john.doe@example.com",
-        // PasswordHash = PasswordHasher.HashPassword(Former2, "Password"),
-        PasswordHash = "Password",
+        PasswordHash = PasswordHasher.HashPassword(null, "Password@123"),
         UserRole = UserRole.Farmer,
         Names = "John",
         Surname = "Doe",
@@ -41,8 +39,7 @@ public static class SeedData
     {
         Id = Guid.NewGuid().ToString(),
         Email = "jane.doe@example.com",
-        // PasswordHash = PasswordHasher.HashPassword(Former3, "Password"),
-        PasswordHash = "Password",
+        PasswordHash = PasswordHasher.HashPassword(null, "Password@123"),
         UserRole = UserRole.Employee,
         Names = "Jane",
         Surname = "Doe",
@@ -53,8 +50,7 @@ public static class SeedData
     {
         Id = Guid.NewGuid().ToString(),
         Email = "sifiso.smith@example.com",
-        // PasswordHash = PasswordHasher.HashPassword(Former4, "Password"),
-        PasswordHash = "Password",
+        PasswordHash = PasswordHasher.HashPassword(null, "Password"),
         UserRole = UserRole.Farmer,
         Names = "Sifiso",
         Surname = "Smith",
@@ -66,7 +62,7 @@ public static class SeedData
         using var context =
             new ApplicationDbContext(serviceProvider
                 .GetRequiredService<DbContextOptions<ApplicationDbContext>>());
-        // if (context.Products == null || context.AppUsers == null) throw new ArgumentNullException(nameof(serviceProvider));
+        if (context.Products == null || context.AppUsers == null) throw new ArgumentNullException(nameof(serviceProvider));
         if (!context.AppUsers.Any())
         {
             // DB is not seeded with AppUsers
@@ -83,39 +79,45 @@ public static class SeedData
             context.Products.AddRange(
                 new Product
                 {
-                    Name = "When Harry Met Sally",
-                    ProductionDate = DateTime.Parse("1989-2-12"),
-                    Category = "Romantic Comedy",
-                    Price = 7.99M,
-                    Rating = 2,
-                    Farmer = Farmer1
+                    Name = "Fresh Sweet Corn",
+                    Description = "Locally grown sweet corn, picked at peak ripeness",
+                    Price = 49.99m,
+                    Quantity = 200
                 },
                 new Product
                 {
-                    Name = "Ghostbusters ",
-                    ProductionDate = DateTime.Parse("1984-3-13"),
-                    Category = "Comedy",
-                    Price = 8.99M,
-                    Rating = 4,
-                    Farmer = Farmer2
+                    Name = "Premium Tomatoes",
+                    Description = "Vine-ripened tomatoes grown in controlled conditions",
+                    Price = 79.99m,
+                    Quantity = 150
                 },
                 new Product
                 {
-                    Name = "Ghostbusters 2",
-                    ProductionDate = DateTime.Parse("1986-2-23"),
-                    Category = "Comedy",
-                    Price = 9.99M,
-                    Rating = 8,
-                    Farmer = Farmer2
+                    Name = "Organic Potatoes",
+                    Description = "Chemical-free potatoes grown in rich soil",
+                    Price = 89.99m,
+                    Quantity = 300
                 },
                 new Product
                 {
-                    Name = "Rio Bravo",
-                    ProductionDate = DateTime.Parse("1959-4-15"),
-                    Category = "Western",
-                    Price = 3.99M,
-                    Rating = 1,
-                    Farmer = Farmer1
+                    Name = "Fresh Cabbage",
+                    Description = "Large, crisp cabbage heads perfect for cooking",
+                    Price = 34.99m,
+                    Quantity = 100
+                },
+                new Product
+                {
+                    Name = "Green Beans",
+                    Description = "Tender, fresh green beans picked daily",
+                    Price = 59.99m,
+                    Quantity = 120
+                },
+                new Product
+                {
+                    Name = "Butternut Squash",
+                    Description = "Sweet and nutty butternut squash, locally grown",
+                    Price = 44.99m,
+                    Quantity = 80
                 }
             );
             context.SaveChanges();

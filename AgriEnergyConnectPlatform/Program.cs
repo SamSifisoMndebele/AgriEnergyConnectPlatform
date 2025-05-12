@@ -43,6 +43,12 @@ builder.Services.AddRazorPages(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var provider = scope.ServiceProvider;
+    SeedData.Initialize(provider);
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -66,7 +72,7 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages().WithStaticAssets();
 
-var defaultCulture = new CultureInfo("en-RSA");
+var defaultCulture = new CultureInfo("en-ZA");
 var localizationOptions = new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture(defaultCulture),
