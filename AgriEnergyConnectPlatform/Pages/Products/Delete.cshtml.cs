@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using AgriEnergyConnectPlatform.Utils;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyConnectPlatform.Pages.Products;
@@ -24,10 +25,18 @@ public class DeleteModel(ApplicationDbContext context) : PageModel
             return NotFound();
         }
 
-        var product = await context.Products.FirstOrDefaultAsync(m => m.Id == id);
+        var product = await context.Products
+            .Include(product => product.Farmer)
+            .FirstOrDefaultAsync(m => m.Id == id);
 
         if (product is not null)
         {
+            var thisFarmerId = User.Claims.First(claim => claim.Type == MyClaimTypes.UserId).Value;
+            var appUser = context.AppUsers.First(p => p.Id == thisFarmerId);
+            if (appUser.Id != product.Farmer.Id)
+            {
+                return Unauthorized();
+            }
             Product = product;
 
             return Page();

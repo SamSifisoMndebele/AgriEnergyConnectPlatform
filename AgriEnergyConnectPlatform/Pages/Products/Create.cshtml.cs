@@ -41,10 +41,22 @@ public class CreateModel : PageModel
         // }
         
         var thisFarmerId = User.Claims.First(claim => claim.Type == MyClaimTypes.UserId).Value;
+        var users = from u in _context.AppUsers select u;
+        var appUser = users.First(p => p.Id == thisFarmerId);
 
-        await _context.Database.ExecuteSqlRawAsync(
-            "INSERT INTO Products (Name, Category, Price, ProductionDate, Rating, FarmerId) VALUES ({0}, {1}, {2}, {3}, {4}, {5})", 
-            Product.Name, Product.Category, Product.Price, Product.ProductionDate, Product.Rating, thisFarmerId);
+        _context.Products.Add(new Product()
+        {
+            Category = Product.Category,
+            Name = Product.Name,
+            Price = Product.Price,
+            Quantity = Product.Quantity,
+            Farmer = appUser,
+            Availability = true,
+            Description = Product.Description,
+            ProductionDate = Product.ProductionDate,
+            Rating = Product.Rating,
+        });
+        await _context.SaveChangesAsync();
 
         return RedirectToPage("./Index");
     }

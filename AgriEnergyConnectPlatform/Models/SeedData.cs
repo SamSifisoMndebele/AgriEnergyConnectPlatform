@@ -58,6 +58,8 @@ public static class SeedData
                     Quantity = 200,
                     Category = "Vegetables",
                     Farmer = Farmer1,
+                    ProductionDate = DateTime.Today,
+                    Rating = 4
                 },
                 new Product
                 {
@@ -67,6 +69,8 @@ public static class SeedData
                     Quantity = 150,
                     Category = "Vegetables",
                     Farmer = Farmer1,
+                    ProductionDate = DateTime.Today,
+                    Rating = 3
                 },
                 new Product
                 {
@@ -76,6 +80,8 @@ public static class SeedData
                     Quantity = 300,
                     Category = "Root Vegetables",
                     Farmer = Farmer1,
+                    ProductionDate = DateTime.Today,
+                    Rating = 7
                 },
                 new Product
                 {
@@ -85,6 +91,8 @@ public static class SeedData
                     Quantity = 100,
                     Category = "Leafy Greens",
                     Farmer = Farmer1,
+                    ProductionDate = DateTime.Today,
+                    Rating = 2
                 },
                 new Product
                 {
@@ -94,6 +102,8 @@ public static class SeedData
                     Quantity = 120,
                     Category = "Vegetables",
                     Farmer = Farmer1,
+                    ProductionDate = DateTime.Today,
+                    Rating = 1
                 },
                 new Product
                 {
@@ -103,6 +113,8 @@ public static class SeedData
                     Quantity = 80,
                     Category = "Vegetables",
                     Farmer = Farmer1,
+                    ProductionDate = DateTime.Today,
+                    Rating = 7
                 }
             );
             context.SaveChanges();

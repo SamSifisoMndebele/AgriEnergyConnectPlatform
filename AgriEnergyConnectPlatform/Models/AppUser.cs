@@ -51,5 +51,5 @@ public class AppUser
 
     [DisplayName("Postal Code")] public string? PostalCode { get; set; } = null;
 
-    [DisplayName("Full Name")] public string FullName => Names?.Trim() + " " + Surname?.Trim();
+    [DisplayName("Name")] public string FullName => Names?.Trim() + " " + Surname?.Trim();
 }

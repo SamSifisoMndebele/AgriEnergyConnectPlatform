@@ -47,9 +47,13 @@
 
 <h1>Products</h1>
 
+@if (User.IsInRole(nameof(UserRole.Farmer)))
+{
 <p>
     <a asp-page="Create">Create New Product</a>
 </p>
+}
+
 
 <form>
     <p>
@@ -61,58 +65,33 @@
     </p>
 </form>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].ProductionDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Rating)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Product)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @if (User.IsInRole(nameof(UserRole.Farmer)))
-                {
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
-                }
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
-                @if (User.IsInRole(nameof(UserRole.Farmer)))
-                {
-                    <span>|</span> <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                }
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<div class="col-md-15">
+    <div class="card-container">
+        @foreach (var item in Model.Product)
+        {
+            <div class="card mb-3">
+                <h3 class="card-header">@Html.DisplayFor(modelItem => item.Price)</h3>
+                @* <img src="@item.ImageUrl" class="card-img-top" alt="Product Image"> *@
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Quantity: @Html.DisplayFor(modelItem => item.Quantity)</h6>
+                    <p class="card-text">
+                        Availability: <span class="availability-tag @(item.Availability ? "availability-yes" : "availability-no")">@Html.DisplayFor(modelItem => item.Availability)</span>
+                    </p>
+                    <p class="card-text">Production Date: @Html.DisplayFor(modelItem => item.ProductionDate)</p>
+                    <p class="card-text">Category: @(item.Category)</p>
+                    <p class="card-text">Rating: @(item.Rating)</p>
+                    @if (User.IsInRole(nameof(UserRole.Farmer)))
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
+                    }
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                    @if (User.IsInRole(nameof(UserRole.Farmer)))
+                    {
+                        <span>|</span> <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

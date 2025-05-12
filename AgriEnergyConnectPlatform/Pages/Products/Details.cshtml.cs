@@ -7,19 +7,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using AgriEnergyConnectPlatform.Utils;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyConnectPlatform.Pages.Products;
 
-public class DetailsModel : PageModel
+public class DetailsModel(ApplicationDbContext context) : PageModel
 {
-    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
-
-    public DetailsModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public Product Product { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
@@ -29,7 +23,7 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
-        var product = await _context.Products
+        var product = await context.Products
             .Include(p => p.Farmer)
             .FirstOrDefaultAsync(m => m.Id == id);
 

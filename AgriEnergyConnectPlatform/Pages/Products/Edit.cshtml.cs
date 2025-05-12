@@ -8,19 +8,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
+using AgriEnergyConnectPlatform.Utils;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyConnectPlatform.Pages.Products;
 
 [Authorize(Roles = nameof(UserRole.Farmer))]
-public class EditModel : PageModel
+public class EditModel(ApplicationDbContext context) : PageModel
 {
-    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
-
-    public EditModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
-    {
-        _context = context;
-    }
 
     [BindProperty]
     public Product Product { get; set; } = default!;
@@ -34,12 +29,18 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var product =  await _context.Products
+        var product =  await context.Products
             .Include(p => p.Farmer)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (product == null)
         {
             return NotFound();
+        }
+        var thisFarmerId = User.Claims.First(claim => claim.Type == MyClaimTypes.UserId).Value;
+        var appUser = context.AppUsers.First(p => p.Id == thisFarmerId);
+        if (appUser.Id != product.Farmer.Id)
+        {
+            return Unauthorized();
         }
         Product = product;
         Farmer = product.Farmer;
@@ -51,11 +52,11 @@ public class EditModel : PageModel
     public async Task<IActionResult> OnPostAsync()
     {
 
-        _context.Attach(Product).State = EntityState.Modified;
+        context.Attach(Product).State = EntityState.Modified;
 
         try
         {
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -72,6 +73,6 @@ public class EditModel : PageModel
 
     private bool ProductExists(int id)
     {
-        return _context.Products.Any(e => e.Id == id);
+        return context.Products.Any(e => e.Id == id);
     }
 }

@@ -65,9 +65,20 @@ ViewData["Title"] = "Create";
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
+                <label asp-for="Product.Description" class="control-label"></label>
+                <input asp-for="Product.Description" class="form-control" />
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
                 <label asp-for="Product.Category" class="control-label"></label>
                 <input asp-for="Product.Category" class="form-control" />
                 <span asp-validation-for="Product.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Quantity" class="control-label"></label>
+                <input asp-for="Product.Quantity" class="form-control" />
+                <span asp-validation-for="Product.Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.ProductionDate" class="control-label"></label>

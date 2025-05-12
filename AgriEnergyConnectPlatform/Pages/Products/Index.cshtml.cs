@@ -11,15 +11,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AgriEnergyConnectPlatform.Pages.Products;
 
-public class IndexModel : PageModel
+public class IndexModel(ApplicationDbContext context) : PageModel
 {
-    private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
-
-    public IndexModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public IList<Product> Product { get;set; } = default!;
 
     [BindProperty(SupportsGet = true)] public string? Search { get; set; }
@@ -30,11 +23,12 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        var categoryQuery = from p in _context.Products
+        
+        var categoryQuery = from p in context.Products
             orderby p.Category
             select p.Category;
 
-        var products = from p in _context.Products
+        var products = from p in context.Products
             select p;
 
         if (!string.IsNullOrEmpty(Category)) products = products.Where(p => p.Category == Category);
