@@ -29,7 +29,9 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
-        var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+        var product = await _context.Products
+            .Include(p => p.Farmer)
+            .FirstOrDefaultAsync(m => m.Id == id);
 
         if (product is not null)
         {

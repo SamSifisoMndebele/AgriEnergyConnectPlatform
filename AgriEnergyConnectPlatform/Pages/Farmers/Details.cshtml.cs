@@ -24,7 +24,8 @@ public class DetailsModel(ApplicationDbContext context) : PageModel
             return NotFound();
         }
 
-        var appuser = await context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
+        var appuser = await context.AppUsers
+            .FirstOrDefaultAsync(m => m.Id == id);
         
         var products = from p in context.Products
             select p;

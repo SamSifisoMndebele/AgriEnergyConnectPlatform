@@ -1,13 +1,57 @@
 @page
 @model AgriEnergyConnectPlatform.Pages.Products.CreateModel
 
-        @{
-        ViewData["Title"] = "Create";
-        }
+@{
+ViewData["Title"] = "Create";
+}
+
+<style>
+    .card {
+        width: 300px;
+        max-height: 700px;
+        background-color: rgba(255, 255, 255);
+        backdrop-filter: blur(2px);
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .card-body {
+        max-height: 400px;
+        color: black;
+    }
+
+    .card-img-top {
+        max-height: 400px;
+        object-fit: cover;
+    }
+
+    h1 {
+        padding-top: 64px;
+        color: darkorange;
+        font-weight:700;
+        font-size:50px;
+    }
+
+    h4 {
+        color: yellowgreen;
+        font-weight: 700;
+        font-size: 30px;
+    }
+    h3 {
+        color: yellowgreen;
+        font-weight: 700;
+        font-size: 20px;
+    }
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+</style>
+
+<h1>Create New Product</h1>
         
-        <h1>Create</h1>
-        
-    <h4>Product</h4>
+    <h3>Enter the product details</h3>
     <hr />
     <div class="row">
     <div class="col-md-4">

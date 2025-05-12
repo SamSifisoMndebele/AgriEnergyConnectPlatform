@@ -2,10 +2,57 @@
 @model AgriEnergyConnectPlatform.Pages.Products.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = Html.DisplayFor(model => model.Product.Name) + " Edit";
 }
 
-<h1>Edit</h1>
+<style>
+    .card {
+        width: 300px;
+        max-height: 700px;
+        background-color: rgba(255, 255, 255);
+        backdrop-filter: blur(2px);
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .card-body {
+        max-height: 400px;
+        color: black;
+    }
+
+    .card-img-top {
+        max-height: 400px;
+        object-fit: cover;
+    }
+
+    h1 {
+        padding-top: 64px;
+        color: darkorange;
+        font-weight:700;
+        font-size:50px;
+    }
+
+    h4 {
+        color: yellowgreen;
+        font-weight: 700;
+        font-size: 30px;
+    }
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    dt {
+        color: darkorange;
+        font-size: 20px;
+    }
+    dd {
+        color: yellowgreen;
+        font-size: 16px;
+    }
+</style>
+
+<h1>@Html.DisplayFor(model => model.Product.Name) Edit</h1>
 
 <h4>Product</h4>
 <hr />
@@ -43,6 +90,12 @@
                 <label asp-for="Product.Rating" class="control-label"></label>
                 <input asp-for="Product.Rating" class="form-control" />
                 <span asp-validation-for="Product.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group visually-hidden">
+                
+                <label asp-for="Product.Farmer" class="control-label"></label>
+                <input asp-for="Product.Farmer" class="form-control" />
+                <span asp-validation-for="Product.Farmer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

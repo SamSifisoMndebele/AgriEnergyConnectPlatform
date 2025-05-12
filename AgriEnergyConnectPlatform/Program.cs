@@ -66,7 +66,7 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages().WithStaticAssets();
 
-var defaultCulture = new CultureInfo("en-US");
+var defaultCulture = new CultureInfo("en-RSA");
 var localizationOptions = new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture(defaultCulture),

@@ -3,14 +3,64 @@
 @model AgriEnergyConnectPlatform.Pages.Products.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
-<h1>Index</h1>
+<style>
+    .card {
+        width: 300px;
+        max-height: 700px;
+        background-color: rgba(255, 255, 255);
+        backdrop-filter: blur(2px);
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .card-body {
+        max-height: 400px;
+        color: black;
+    }
+
+    .card-img-top {
+        max-height: 400px;
+        object-fit: cover;
+    }
+
+    h1 {
+        padding-top: 64px;
+        color: darkorange;
+        font-weight:700;
+        font-size:50px;
+    }
+
+    h4 {
+        color: yellowgreen;
+        font-weight: 700;
+        font-size: 30px;
+    }
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+</style>
+
+<h1>Products</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New Product</a>
 </p>
+
+<form>
+    <p>
+        <select asp-for="Category" asp-items="Model.Categories">
+            <option value="">All</option>
+        </select>
+        <label>Name: <input type="text" asp-for="Search"/></label>
+        <input type="submit" value="Filter"/>
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>

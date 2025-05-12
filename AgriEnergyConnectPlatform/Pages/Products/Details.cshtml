@@ -2,10 +2,56 @@
 @model AgriEnergyConnectPlatform.Pages.Products.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Html.DisplayFor(model => model.Product.Name)+"'s Details";
 }
+<style>
+    .card {
+        width: 300px;
+        max-height: 700px;
+        background-color: rgba(255, 255, 255);
+        backdrop-filter: blur(2px);
+        color: black;
+        margin-bottom: 10px;
+    }
 
-<h1>Details</h1>
+    .card-body {
+        max-height: 400px;
+        color: black;
+    }
+
+    .card-img-top {
+        max-height: 400px;
+        object-fit: cover;
+    }
+
+    h1 {
+        padding-top: 64px;
+        color: darkorange;
+        font-weight:700;
+        font-size:50px;
+    }
+
+    h4 {
+        color: yellowgreen;
+        font-weight: 700;
+        font-size: 30px;
+    }
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    dt {
+        color: darkorange;
+        font-size: 20px;
+    }
+    dd {
+        color: yellowgreen;
+        font-size: 16px;
+    }
+</style>
+
+<h1>@Html.DisplayFor(model => model.Product.Name)'s Details</h1>
 
 <div>
     <h4>Product</h4>
@@ -40,6 +86,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.Rating)
+        </dd>
+        <dt class="col-sm-2">
+            Farmer Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.Farmer.FullName)
         </dd>
     </dl>
 </div>

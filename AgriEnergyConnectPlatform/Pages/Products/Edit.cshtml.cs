@@ -24,6 +24,8 @@ public class EditModel : PageModel
 
     [BindProperty]
     public Product Product { get; set; } = default!;
+    [BindProperty]
+    public AppUser Farmer { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -32,12 +34,15 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var product =  await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+        var product =  await _context.Products
+            .Include(p => p.Farmer)
+            .FirstOrDefaultAsync(m => m.Id == id);
         if (product == null)
         {
             return NotFound();
         }
         Product = product;
+        Farmer = product.Farmer;
         return Page();
     }
 
@@ -45,10 +50,6 @@ public class EditModel : PageModel
     // For more information, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid)
-        {
-            return Page();
-        }
 
         _context.Attach(Product).State = EntityState.Modified;
 
@@ -62,10 +63,8 @@ public class EditModel : PageModel
             {
                 return NotFound();
             }
-            else
-            {
-                throw;
-            }
+
+            throw;
         }
 
         return RedirectToPage("./Index");

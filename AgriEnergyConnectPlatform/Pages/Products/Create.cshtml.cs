@@ -18,19 +18,15 @@ namespace AgriEnergyConnectPlatform.Pages.Products;
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _context;
-    private static AppUser ThisFarmer;
 
     public CreateModel(ApplicationDbContext context)
     {
         _context = context;
     } 
 
-    public async Task OnGetAsync()
+    public void OnGet()
     {
-        var uid = User.Claims.First(claim => claim.Type == MyClaimTypes.UserId).Value;
-        var users = from u in _context.AppUsers select u;
-        users = users.Where(p => p.Id == uid);
-        ThisFarmer = await users.FirstAsync();
+        
     }
     
     [BindProperty] 
@@ -43,18 +39,12 @@ public class CreateModel : PageModel
         // {
         //     return Page();
         // }
+        
+        var thisFarmerId = User.Claims.First(claim => claim.Type == MyClaimTypes.UserId).Value;
 
-        _context.Products.Add(new Product
-        {
-            Name = Product.Name,
-            Price = Product.Price,
-            Category = Product.Category,
-            ProductionDate = Product.ProductionDate,
-            Rating = Product.Rating,
-            Farmer = ThisFarmer,
-        });
-        Console.WriteLine(Product.ProductionDate);
-        await _context.SaveChangesAsync();
+        await _context.Database.ExecuteSqlRawAsync(
+            "INSERT INTO Products (Name, Category, Price, ProductionDate, Rating, FarmerId) VALUES ({0}, {1}, {2}, {3}, {4}, {5})", 
+            Product.Name, Product.Category, Product.Price, Product.ProductionDate, Product.Rating, thisFarmerId);
 
         return RedirectToPage("./Index");
     }
