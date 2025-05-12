@@ -25,6 +25,23 @@ AgriEnergyConnect Platform is a web application built with ASP.NET Core that fac
 - Mobile-friendly layout
 - Custom styling for better user experience
 
+### Test Accounts
+The system comes with two pre-configured test accounts for development and testing purposes:
+
+#### Administrator Account
+- Email: admin@mail.com
+- Password: Admin@123
+- Role: Employee
+- Access: Full administrative privileges
+
+#### Farmer Test Account
+- Email: jane.doe@example.com
+- Password: Password@123
+- Role: Farmer
+- Access: Farmer-specific features
+
+**Note**: These accounts are for testing purposes only. In a production environment, you should remove or change these credentials.
+
 ## Technology Stack
 
 ### Backend
