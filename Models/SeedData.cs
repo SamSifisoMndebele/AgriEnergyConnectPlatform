@@ -8,8 +8,8 @@ namespace AgriEnergyConnectPlatform.Models;
 
 public static class SeedData
 {
-    // private static PasswordHasher<DbUser> PasswordHasher;
-    private static DbUser Employee1 => new()
+    // private static PasswordHasher<AppUsers> PasswordHasher;
+    private static AppUser Employee1 => new()
     {
         Id = Guid.NewGuid().ToString(),
         Email = "sams.mndebele@gmail.com",
@@ -25,7 +25,7 @@ public static class SeedData
         PostalCode = "1245"
     };
 
-    private static DbUser Farmer1 => new()
+    private static AppUser Farmer1 => new()
     {
         Id = Guid.NewGuid().ToString(),
         Email = "john.doe@example.com",
@@ -37,7 +37,7 @@ public static class SeedData
         PhoneNumber = "0721646430",
     };
 
-    private static DbUser Employee2 => new()
+    private static AppUser Employee2 => new()
     {
         Id = Guid.NewGuid().ToString(),
         Email = "jane.doe@example.com",
@@ -49,7 +49,7 @@ public static class SeedData
         PhoneNumber = "0721646430",
     };
 
-    private static DbUser Farmer2 => new()
+    private static AppUser Farmer2 => new()
     {
         Id = Guid.NewGuid().ToString(),
         Email = "sifiso.smith@example.com",
@@ -66,21 +66,21 @@ public static class SeedData
         using var context =
             new AgriEnergyConnectPlatformContext(serviceProvider
                 .GetRequiredService<DbContextOptions<AgriEnergyConnectPlatformContext>>());
-        // if (context.Product == null || context.DbUser == null) throw new ArgumentNullException(nameof(serviceProvider));
-        if (!context.DbUser.Any())
+        // if (context.Products == null || context.AppUsers == null) throw new ArgumentNullException(nameof(serviceProvider));
+        if (!context.AppUsers.Any())
         {
             // DB is not seeded with AppUsers
-            context.DbUser.AddRange(
+            context.AppUsers.AddRange(
                 Employee1,
                 Employee2,
                 Farmer1,
                 Farmer2
             );
         } 
-        if (!context.Product.Any())
+        if (!context.Products.Any())
         {
             // DB is not seeded with Products
-            context.Product.AddRange(
+            context.Products.AddRange(
                 new Product
                 {
                     Name = "When Harry Met Sally",

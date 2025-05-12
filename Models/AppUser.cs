@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AgriEnergyConnectPlatform.Models;
 
 [Index(nameof(Email), IsUnique = true)]
-public class DbUser
+public class AppUser
 {
     [Column(TypeName = "char(36)")]
     public string Id { get; set; }

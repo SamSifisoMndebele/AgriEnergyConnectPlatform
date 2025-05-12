@@ -18,7 +18,7 @@ public class CredentialRegister
     [Required, DataType(DataType.Password)]
     public string PasswordConfirm { get; set; }
 
-    [Required] 
+    [Required, DisplayName("User Role")] 
     public UserRole UserRole { get; set; } = UserRole.Farmer;
 
     [StringLength(128, ErrorMessage = "First Names cannot be longer than 128 characters.")]
