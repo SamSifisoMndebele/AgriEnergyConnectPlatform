@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriEnergyConnectPlatform", "AgriEnergyConnectPlatform\AgriEnergyConnectPlatform.csproj", "{504F7DBA-CDB5-4569-8CAF-1ADB24E92D32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{504F7DBA-CDB5-4569-8CAF-1ADB24E92D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504F7DBA-CDB5-4569-8CAF-1ADB24E92D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504F7DBA-CDB5-4569-8CAF-1ADB24E92D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504F7DBA-CDB5-4569-8CAF-1ADB24E92D32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
