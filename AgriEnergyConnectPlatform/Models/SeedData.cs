@@ -24,12 +24,16 @@ public static class SeedData
     private static readonly AppUser Farmer1 = new()
     {
         Id = Guid.NewGuid().ToString(),
-        Email = "jane.doe@example.com",
+        Email = "simphiwe@gmail.com",
         PasswordHash = HashPassword("Password@123"),
         UserRole = UserRole.Farmer,
-        Names = "Jane",
-        Surname = "Doe",
-        PhoneNumber = "0721646430",
+        Names = "Simphiwe",
+        Surname = "Nyandeni",
+        PhoneNumber = "06556156165",
+        StreetAddress = "Stand 111",
+        City = "Nairobi",
+        Province = "Kenya",
+        PostalCode = "000000",
     };
 
     public static void Initialize(IServiceProvider serviceProvider)
