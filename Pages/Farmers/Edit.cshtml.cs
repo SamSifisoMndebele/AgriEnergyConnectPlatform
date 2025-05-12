@@ -21,7 +21,7 @@ public class EditModel : PageModel
     {
         if (id == null) return NotFound();
 
-        var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
+        var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
         if (product == null) return NotFound();
         Product = product;
         return Page();
@@ -51,6 +51,6 @@ public class EditModel : PageModel
 
     private bool ProductExists(int id)
     {
-        return _context.Product.Any(e => e.Id == id);
+        return _context.Products.Any(e => e.Id == id);
     }
 }

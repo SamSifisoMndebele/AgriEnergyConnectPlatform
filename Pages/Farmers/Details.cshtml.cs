@@ -21,7 +21,7 @@ public class DetailsModel : PageModel
     {
         if (id == null) return NotFound();
 
-        var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
+        var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
 
         if (product is not null)
         {

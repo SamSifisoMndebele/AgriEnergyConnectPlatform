@@ -26,11 +26,11 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        var categoryQuery = from p in _context.Product
+        var categoryQuery = from p in _context.Products
             orderby p.Category
             select p.Category;
 
-        var products = from p in _context.Product
+        var products = from p in _context.Products
             select p;
 
         if (!string.IsNullOrEmpty(Category)) products = products.Where(p => p.Category == Category);

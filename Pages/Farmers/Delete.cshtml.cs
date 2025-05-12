@@ -21,7 +21,7 @@ public class DeleteModel : PageModel
     {
         if (id == null) return NotFound();
 
-        var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
+        var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
 
         if (product is not null)
         {
@@ -37,11 +37,11 @@ public class DeleteModel : PageModel
     {
         if (id == null) return NotFound();
 
-        var product = await _context.Product.FindAsync(id);
+        var product = await _context.Products.FindAsync(id);
         if (product != null)
         {
             Product = product;
-            _context.Product.Remove(Product);
+            _context.Products.Remove(Product);
             await _context.SaveChangesAsync();
         }
 
