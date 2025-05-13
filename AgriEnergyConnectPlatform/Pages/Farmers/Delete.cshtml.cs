@@ -1,64 +1,52 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
-namespace AgriEnergyConnectPlatform.Pages.Farmers
+namespace AgriEnergyConnectPlatform.Pages.Farmers;
+
+[Authorize(Roles = nameof(UserRole.Employee))]
+public class DeleteModel : PageModel
 {
-    [Authorize(Roles = nameof(UserRole.Employee))]
-    public class DeleteModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public DeleteModel(ApplicationDbContext context)
     {
-        private readonly AgriEnergyConnectPlatform.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(AgriEnergyConnectPlatform.Data.ApplicationDbContext context)
+    [BindProperty] public AppUser AppUser { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(string id)
+    {
+        if (id == null) return NotFound();
+
+        var appuser = await _context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
+
+        if (appuser is not null)
         {
-            _context = context;
+            AppUser = appuser;
+
+            return Page();
         }
 
-        [BindProperty]
-        public AppUser AppUser { get; set; } = default!;
+        return NotFound();
+    }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+    public async Task<IActionResult> OnPostAsync(string? id)
+    {
+        if (id == null) return NotFound();
+
+        var appuser = await _context.AppUsers.FindAsync(id);
+        if (appuser != null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var appuser = await _context.AppUsers.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (appuser is not null)
-            {
-                AppUser = appuser;
-
-                return Page();
-            }
-
-            return NotFound();
+            AppUser = appuser;
+            _context.AppUsers.Remove(AppUser);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(string? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var appuser = await _context.AppUsers.FindAsync(id);
-            if (appuser != null)
-            {
-                AppUser = appuser;
-                _context.AppUsers.Remove(AppUser);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

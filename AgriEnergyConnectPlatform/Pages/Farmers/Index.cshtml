@@ -28,8 +28,8 @@
     h1 {
         padding-top: 64px;
         color: darkorange;
-        font-weight:700;
-        font-size:50px;
+        font-weight: 700;
+        font-size: 50px;
     }
 
     h4 {
@@ -37,6 +37,7 @@
         font-weight: 700;
         font-size: 30px;
     }
+
     .card-container {
         display: flex;
         flex-wrap: wrap;
@@ -55,39 +56,40 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].UserRole)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].Names)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].Surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].StreetAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].Province)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser[0].PostalCode)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].UserRole)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].Names)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].StreetAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].Province)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser[0].PostalCode)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.AppUser) {
+    @foreach (var item in Model.AppUser)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
@@ -118,13 +120,14 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
                 @if (User.IsInRole(nameof(UserRole.Employee)))
                 {
-                    <span>|</span> <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    <span>|</span>
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                 }
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

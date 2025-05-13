@@ -1,6 +1,5 @@
 ﻿@page
 @using AgriEnergyConnectPlatform.Models
-@using Microsoft.AspNetCore.Mvc.Rendering
 @model Register
 
 @{
@@ -36,7 +35,7 @@
         text-align: center;
         color: #4FA577;
         font-size: 40px;
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
     }
 
     h4 {
@@ -45,7 +44,7 @@
     }
 
     form {
-        background-color: rgba(255, 255, 255, 0.9); 
+        background-color: rgba(255, 255, 255, 0.9);
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -79,9 +78,9 @@
         cursor: pointer;
     }
 
-        .btn-primary:hover {
-            background-color: #3BB433FF;
-        }
+    .btn-primary:hover {
+        background-color: #3BB433FF;
+    }
 
     a {
         display: block;
@@ -90,9 +89,9 @@
         text-decoration: none;
     }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    a:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <div class="container">
@@ -164,16 +163,17 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Credential.UserRole"></label>
-                    <select asp-for="Credential.UserRole" asp-items="Html.GetEnumSelectList<UserRole>()" class="form-control"></select>
+                    <select asp-for="Credential.UserRole" asp-items="Html.GetEnumSelectList<UserRole>()"
+                            class="form-control"></select>
                     <span asp-validation-for="Credential.UserRole" class="text-danger"></span>
                 </div>
             </div>
         </div>
-        
+
         <div class="form-group">
             <button type="submit" class="btn btn-outline-primary">Register</button>
         </div>
-        
+
         <div class="mt-3 flex-column d-flex justify-content-center align-items-center">
             <p>Already have an account? <a asp-page="/Auth/Login">Login here</a></p>
         </div>

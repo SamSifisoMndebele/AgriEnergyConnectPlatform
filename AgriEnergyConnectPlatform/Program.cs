@@ -1,9 +1,8 @@
 using System.Globalization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +28,8 @@ builder.Services.AddAuthentication(CookieAuthentication.AuthenticationScheme)
     });
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy(nameof(UserRole.Farmer), policy => policy.RequireRole(nameof(UserRole.Employee), nameof(UserRole.Farmer)));
+    options.AddPolicy(nameof(UserRole.Farmer),
+        policy => policy.RequireRole(nameof(UserRole.Employee), nameof(UserRole.Farmer)));
     options.AddPolicy(nameof(UserRole.Employee), policy => policy.RequireRole(nameof(UserRole.Employee)));
 });
 

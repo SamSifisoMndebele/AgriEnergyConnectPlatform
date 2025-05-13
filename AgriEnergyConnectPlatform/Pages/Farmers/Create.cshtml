@@ -2,10 +2,10 @@
 @using AgriEnergyConnectPlatform.Models
 @model CreateModel
 
-@{ 
+@{
     ViewData["Title"] = "New Farmer";
 }
-        
+
 
 <style>
     .card {
@@ -30,8 +30,8 @@
     h1 {
         padding-top: 64px;
         color: darkorange;
-        font-weight:700;
-        font-size:50px;
+        font-weight: 700;
+        font-size: 50px;
     }
 
     h4 {
@@ -39,11 +39,13 @@
         font-weight: 700;
         font-size: 30px;
     }
+
     h3 {
         color: yellowgreen;
         font-weight: 700;
         font-size: 20px;
     }
+
     .card-container {
         display: flex;
         flex-wrap: wrap;
@@ -52,87 +54,88 @@
 </style>
 
 <h1>Add New Farmer</h1>
-        
+
 <h3>Enter the farmer's details</h3>
-    <hr />
-    <div class="row">
-        
-        <div class="col-md-4">
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <span class="text-danger">*</span>
-                    <label asp-for="Credential.Email" class="control-label"></label>
-                    <input asp-for="Credential.Email" class="form-control"/>
-                    <span asp-validation-for="Credential.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <span class="text-danger">*</span>
-                    <label asp-for="Credential.Password" class="control-label"></label>
-                    <input asp-for="Credential.Password" class="form-control"/>
-                    <span asp-validation-for="Credential.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <span class="text-danger">*</span>
-                    <label asp-for="Credential.PasswordConfirm" class="control-label"></label>
-                    <input asp-for="Credential.PasswordConfirm" class="form-control"/>
-                    <span asp-validation-for="Credential.PasswordConfirm" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <span class="text-danger">*</span>
-                    <label asp-for="Credential.UserRole" class="control-label"></label>
-                    <select asp-for="Credential.UserRole" asp-items="Html.GetEnumSelectList<UserRole>()" class="form-control"></select>
-                    <span asp-validation-for="Credential.UserRole" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <span class="text-danger">*</span>
-                    <label asp-for="Credential.Names" class="control-label"></label>
-                    <input asp-for="Credential.Names" class="form-control"/>
-                    <span asp-validation-for="Credential.Names" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <span class="text-danger">*</span>
-                    <label asp-for="Credential.Surname" class="control-label"></label>
-                    <input asp-for="Credential.Surname" class="form-control"/>
-                    <span asp-validation-for="Credential.Surname" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <span class="text-danger">*</span>
-                    <label asp-for="Credential.PhoneNumber" class="control-label"></label>
-                    <input asp-for="Credential.PhoneNumber" class="form-control"/>
-                    <span asp-validation-for="Credential.PhoneNumber" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Credential.StreetAddress" class="control-label"></label>
-                    <input asp-for="Credential.StreetAddress" class="form-control"/>
-                    <span asp-validation-for="Credential.StreetAddress" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Credential.City" class="control-label"></label>
-                    <input asp-for="Credential.City" class="form-control"/>
-                    <span asp-validation-for="Credential.City" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Credential.Province" class="control-label"></label>
-                    <input asp-for="Credential.Province" class="form-control"/>
-                    <span asp-validation-for="Credential.Province" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Credential.PostalCode" class="control-label"></label>
-                    <input asp-for="Credential.PostalCode" class="form-control"/>
-                    <span asp-validation-for="Credential.PostalCode" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary"/>
-                </div>
-            </form>
-        </div>
+<hr/>
+<div class="row">
+
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Credential.Email" class="control-label"></label>
+                <input asp-for="Credential.Email" class="form-control"/>
+                <span asp-validation-for="Credential.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Credential.Password" class="control-label"></label>
+                <input asp-for="Credential.Password" class="form-control"/>
+                <span asp-validation-for="Credential.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Credential.PasswordConfirm" class="control-label"></label>
+                <input asp-for="Credential.PasswordConfirm" class="form-control"/>
+                <span asp-validation-for="Credential.PasswordConfirm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Credential.UserRole" class="control-label"></label>
+                <select asp-for="Credential.UserRole" asp-items="Html.GetEnumSelectList<UserRole>()"
+                        class="form-control"></select>
+                <span asp-validation-for="Credential.UserRole" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Credential.Names" class="control-label"></label>
+                <input asp-for="Credential.Names" class="form-control"/>
+                <span asp-validation-for="Credential.Names" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Credential.Surname" class="control-label"></label>
+                <input asp-for="Credential.Surname" class="form-control"/>
+                <span asp-validation-for="Credential.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Credential.PhoneNumber" class="control-label"></label>
+                <input asp-for="Credential.PhoneNumber" class="form-control"/>
+                <span asp-validation-for="Credential.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Credential.StreetAddress" class="control-label"></label>
+                <input asp-for="Credential.StreetAddress" class="form-control"/>
+                <span asp-validation-for="Credential.StreetAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Credential.City" class="control-label"></label>
+                <input asp-for="Credential.City" class="form-control"/>
+                <span asp-validation-for="Credential.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Credential.Province" class="control-label"></label>
+                <input asp-for="Credential.Province" class="form-control"/>
+                <span asp-validation-for="Credential.Province" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Credential.PostalCode" class="control-label"></label>
+                <input asp-for="Credential.PostalCode" class="form-control"/>
+                <span asp-validation-for="Credential.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
     </div>
+</div>
 
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

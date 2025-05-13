@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\RiderProjects\\AgriEnergyConnectPlatform\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{504F7DBA-CDB5-4569-8CAF-1ADB24E92D32}|AgriEnergyConnectPlatform\\AgriEnergyConnectPlatform.csproj|d:\\riderprojects\\agrienergyconnectplatform\\agrienergyconnectplatform\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{504F7DBA-CDB5-4569-8CAF-1ADB24E92D32}|AgriEnergyConnectPlatform\\AgriEnergyConnectPlatform.csproj|solutionrelative:agrienergyconnectplatform\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,24 +9,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "README.md",
-              "DocumentMoniker": "D:\\RiderProjects\\AgriEnergyConnectPlatform\\AgriEnergyConnectPlatform\\README.md",
-              "RelativeDocumentMoniker": "AgriEnergyConnectPlatform\\README.md",
-              "ToolTip": "D:\\RiderProjects\\AgriEnergyConnectPlatform\\AgriEnergyConnectPlatform\\README.md",
-              "RelativeToolTip": "AgriEnergyConnectPlatform\\README.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-05-12T18:34:56.281Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AgriEnergyConnectPlatform.Models;
 
 public class Category
 {
     public int Id { get; set; }
-    
+
     [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")]
     [StringLength(30)]
     [Required]

@@ -1,5 +1,5 @@
 @page
-@model AgriEnergyConnectPlatform.Pages.Products.EditModel
+@model EditModel
 
 @{
     ViewData["Title"] = Html.DisplayFor(model => model.Product.Name) + " Edit";
@@ -28,8 +28,8 @@
     h1 {
         padding-top: 64px;
         color: darkorange;
-        font-weight:700;
-        font-size:50px;
+        font-weight: 700;
+        font-size: 50px;
     }
 
     h4 {
@@ -37,15 +37,18 @@
         font-weight: 700;
         font-size: 30px;
     }
+
     .card-container {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
     }
+
     dt {
         color: darkorange;
         font-size: 20px;
     }
+
     dd {
         color: yellowgreen;
         font-size: 16px;
@@ -55,62 +58,62 @@
 <h1>@Html.DisplayFor(model => model.Product.Name) Edit</h1>
 
 <h4>Product</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Product.Id" />
+            <input type="hidden" asp-for="Product.Id"/>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Product.Name" class="control-label"></label>
-                <input asp-for="Product.Name" class="form-control" />
+                <input asp-for="Product.Name" class="form-control"/>
                 <span asp-validation-for="Product.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Product.Description" class="control-label"></label>
-                <input asp-for="Product.Description" class="form-control" />
+                <input asp-for="Product.Description" class="form-control"/>
                 <span asp-validation-for="Product.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Product.Category" class="control-label"></label>
-                <input asp-for="Product.Category" class="form-control" />
+                <input asp-for="Product.Category" class="form-control"/>
                 <span asp-validation-for="Product.Category" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Product.Quantity" class="control-label"></label>
-                <input asp-for="Product.Quantity" class="form-control" />
+                <input asp-for="Product.Quantity" class="form-control"/>
                 <span asp-validation-for="Product.Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+
                 <label asp-for="Product.ProductionDate" class="control-label"></label>
-                <input asp-for="Product.ProductionDate" class="form-control" />
+                <input asp-for="Product.ProductionDate" class="form-control"/>
                 <span asp-validation-for="Product.ProductionDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+
                 <label asp-for="Product.Price" class="control-label"></label>
-                <input asp-for="Product.Price" class="form-control" />
+                <input asp-for="Product.Price" class="form-control"/>
                 <span asp-validation-for="Product.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+
                 <label asp-for="Product.Rating" class="control-label"></label>
-                <input asp-for="Product.Rating" class="form-control" />
+                <input asp-for="Product.Rating" class="form-control"/>
                 <span asp-validation-for="Product.Rating" class="text-danger"></span>
             </div>
             <div class="form-group visually-hidden">
-                
+
                 <label asp-for="Product.Farmer" class="control-label"></label>
-                <input asp-for="Product.Farmer" class="form-control" />
+                <input asp-for="Product.Farmer" class="form-control"/>
                 <span asp-validation-for="Product.Farmer" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -121,5 +124,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

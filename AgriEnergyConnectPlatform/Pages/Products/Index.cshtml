@@ -1,6 +1,6 @@
 @page
 @using AgriEnergyConnectPlatform.Models
-@model AgriEnergyConnectPlatform.Pages.Products.IndexModel
+@model IndexModel
 
 @{
     ViewData["Title"] = "Products";
@@ -29,8 +29,8 @@
     h1 {
         padding-top: 64px;
         color: darkorange;
-        font-weight:700;
-        font-size:50px;
+        font-weight: 700;
+        font-size: 50px;
     }
 
     h4 {
@@ -38,6 +38,7 @@
         font-weight: 700;
         font-size: 30px;
     }
+
     .card-container {
         display: flex;
         flex-wrap: wrap;
@@ -49,9 +50,9 @@
 
 @if (User.IsInRole(nameof(UserRole.Farmer)))
 {
-<p>
-    <a asp-page="Create">Create New Product</a>
-</p>
+    <p>
+        <a asp-page="Create">Create New Product</a>
+    </p>
 }
 
 
@@ -74,21 +75,25 @@
                 @* <img src="@item.ImageUrl" class="card-img-top" alt="Product Image"> *@
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Quantity: @Html.DisplayFor(modelItem => item.Quantity)</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Quantity: @Html.DisplayFor(modelItem => item.Quantity)</h6>
                     <p class="card-text">
-                        Availability: <span class="availability-tag @(item.Availability ? "availability-yes" : "availability-no")">@Html.DisplayFor(modelItem => item.Availability)</span>
+                        Availability: <span
+                            class="availability-tag @(item.Availability ? "availability-yes" : "availability-no")">@Html.DisplayFor(modelItem => item.Availability)</span>
                     </p>
                     <p class="card-text">Production Date: @Html.DisplayFor(modelItem => item.ProductionDate)</p>
                     <p class="card-text">Category: @(item.Category)</p>
                     <p class="card-text">Rating: @(item.Rating)</p>
                     @if (User.IsInRole(nameof(UserRole.Farmer)))
                     {
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <span>|</span>
                     }
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
                     @if (User.IsInRole(nameof(UserRole.Farmer)))
                     {
-                        <span>|</span> <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        <span>|</span>
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                     }
                 </div>
             </div>

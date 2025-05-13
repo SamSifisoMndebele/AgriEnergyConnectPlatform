@@ -12,13 +12,10 @@ namespace AgriEnergyConnectPlatform.Pages.Auth;
 public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) : PageModel
 {
     [BindProperty] public required CredentialRegister Credential { get; set; }
-    
+
     public IActionResult OnGet()
     {
-        if (User.Identity is { IsAuthenticated: true })
-        {
-            return RedirectToPage("/Products/Index");
-        }
+        if (User.Identity is { IsAuthenticated: true }) return RedirectToPage("/Products/Index");
 
         return Page();
     }
@@ -37,17 +34,18 @@ public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) 
             ModelState.AddModelError("Credential.Terms", "You must agree to the terms and conditions.");
             return Page();
         }
+
         var users = from u in context.AppUsers select u;
         if (users.Any(p => p.Email == Credential.Email))
         {
             ModelState.AddModelError(
-                string.Empty, 
+                string.Empty,
                 "A user with that email address already exists.\n" +
                 "Please enter a different email address or login to your account.");
             return Page();
         }
 
-        var appUser = context.AppUsers.Add(new()
+        var appUser = context.AppUsers.Add(new AppUser
         {
             Id = Guid.NewGuid().ToString(),
             Email = Credential.Email,
@@ -59,10 +57,10 @@ public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) 
             StreetAddress = Credential.StreetAddress,
             City = Credential.City,
             Province = Credential.Province,
-            PostalCode = Credential.PostalCode,
+            PostalCode = Credential.PostalCode
         });
         await context.SaveChangesAsync();
-        
+
         // Create Security Context
         var claims = new List<Claim>
         {
@@ -104,7 +102,7 @@ public class Register(ApplicationDbContext context, ILogger<IndexModel> logger) 
             CookieAuthentication.AuthenticationScheme,
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
-        
+
         return RedirectToPage("/Products/Index");
     }
 }

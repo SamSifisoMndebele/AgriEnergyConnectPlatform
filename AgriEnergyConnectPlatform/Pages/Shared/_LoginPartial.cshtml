@@ -1,6 +1,5 @@
 ﻿@using System.Security.Claims
 @using AgriEnergyConnectPlatform.Models
-
 <div class="mr-2 flex-row d-flex align-items-center">
     @if (User.Identity is { IsAuthenticated: true })
     {
@@ -8,7 +7,7 @@
         {
             <a class="nav-link active text-light" asp-page="/Farmers/Index" title="Profile">
                 Hello Farmer: @User.Identity.Name @User.Claims.First(c => c.Type == ClaimTypes.Surname).Value
-            </a>    
+            </a>
         }
         else
         {
@@ -16,7 +15,9 @@
                 Hello Employee: @User.Identity.Name @User.Claims.First(c => c.Type == ClaimTypes.Surname).Value
             </a>
         }
-        <form class="nav-link form-inline" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+
+        <form class="nav-link form-inline" asp-page="/Auth/Logout"
+              asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
             <button type="submit" class="nav-link btn btn-link btn-outline-primary">Logout</button>
         </form>
     }

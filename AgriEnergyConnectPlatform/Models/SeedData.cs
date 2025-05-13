@@ -1,15 +1,11 @@
 ﻿using AgriEnergyConnectPlatform.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using static Microsoft.Extensions.Options.Options;
 using static BCrypt.Net.BCrypt;
 
 namespace AgriEnergyConnectPlatform.Models;
 
 public static class SeedData
 {
-
     private static readonly AppUser Admin = new()
     {
         Id = Guid.NewGuid().ToString(),
@@ -18,22 +14,22 @@ public static class SeedData
         UserRole = UserRole.Employee,
         Names = "A",
         Surname = "Admin",
-        PhoneNumber = "0000000000",
+        PhoneNumber = "0000000000"
     };
 
     private static readonly AppUser Farmer1 = new()
     {
         Id = Guid.NewGuid().ToString(),
-        Email = "simphiwe@gmail.com",
+        Email = "sam@mail.com",
         PasswordHash = HashPassword("Password@123"),
         UserRole = UserRole.Farmer,
-        Names = "Simphiwe",
-        Surname = "Nyandeni",
-        PhoneNumber = "06556156165",
+        Names = "Sam",
+        Surname = "Mndebele",
+        PhoneNumber = "0721646430",
         StreetAddress = "Stand 111",
-        City = "Nairobi",
-        Province = "Kenya",
-        PostalCode = "000000",
+        City = "Mbombela",
+        Province = "Mpumalanga",
+        PostalCode = "0000"
     };
 
     public static void Initialize(IServiceProvider serviceProvider)
@@ -41,15 +37,14 @@ public static class SeedData
         using var context =
             new ApplicationDbContext(serviceProvider
                 .GetRequiredService<DbContextOptions<ApplicationDbContext>>());
-        if (context.Products == null || context.AppUsers == null) throw new ArgumentNullException(nameof(serviceProvider));
+        if (context.Products == null || context.AppUsers == null)
+            throw new ArgumentNullException(nameof(serviceProvider));
         if (!context.AppUsers.Any())
-        {
             // DB is not seeded with AppUsers
             context.AppUsers.AddRange(
                 Admin,
                 Farmer1
             );
-        } 
         if (!context.Products.Any())
         {
             // DB is not seeded with Products

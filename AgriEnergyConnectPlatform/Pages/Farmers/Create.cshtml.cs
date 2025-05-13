@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using AgriEnergyConnectPlatform.Data;
 using AgriEnergyConnectPlatform.Models;
-using AgriEnergyConnectPlatform.Utils;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using static BCrypt.Net.BCrypt;
 
 namespace AgriEnergyConnectPlatform.Pages.Farmers;
@@ -16,12 +10,12 @@ namespace AgriEnergyConnectPlatform.Pages.Farmers;
 [Authorize(Roles = nameof(UserRole.Employee))]
 public class CreateModel(ApplicationDbContext context) : PageModel
 {
+    [BindProperty] public CredentialRegister Credential { get; set; } = default!;
+
     public IActionResult OnGet()
     {
         return Page();
     }
-
-    [BindProperty] public CredentialRegister Credential { get; set; } = default!;
 
     // For more information, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
@@ -32,7 +26,8 @@ public class CreateModel(ApplicationDbContext context) : PageModel
             ModelState.AddModelError("Credential.PasswordConfirm", "Passwords do not match.");
             return Page();
         }
-        context.AppUsers.Add(new AppUser()
+
+        context.AppUsers.Add(new AppUser
         {
             Id = Guid.NewGuid().ToString(),
             Names = Credential.Names,
@@ -44,7 +39,7 @@ public class CreateModel(ApplicationDbContext context) : PageModel
             Province = Credential.Province,
             StreetAddress = Credential.StreetAddress,
             Surname = Credential.Surname,
-            UserRole = Credential.UserRole,
+            UserRole = Credential.UserRole
         });
         await context.SaveChangesAsync();
 

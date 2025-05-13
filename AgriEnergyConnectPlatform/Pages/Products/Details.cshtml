@@ -1,9 +1,9 @@
 @page
 @using AgriEnergyConnectPlatform.Models
-@model AgriEnergyConnectPlatform.Pages.Products.DetailsModel
+@model DetailsModel
 
 @{
-    ViewData["Title"] = Html.DisplayFor(model => model.Product.Name)+"'s Details";
+    ViewData["Title"] = Html.DisplayFor(model => model.Product.Name) + "'s Details";
 }
 <style>
     .card {
@@ -28,8 +28,8 @@
     h1 {
         padding-top: 64px;
         color: darkorange;
-        font-weight:700;
-        font-size:50px;
+        font-weight: 700;
+        font-size: 50px;
     }
 
     h4 {
@@ -37,15 +37,18 @@
         font-weight: 700;
         font-size: 30px;
     }
+
     .card-container {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
     }
+
     dt {
         color: darkorange;
         font-size: 20px;
     }
+
     dd {
         color: yellowgreen;
         font-size: 16px;
@@ -56,7 +59,7 @@
 
 <div>
     <h4>Product</h4>
-    <hr />
+    <hr/>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Name)
@@ -103,7 +106,7 @@
     </dl>
 </div>
 <div>
-    <a asp-page="/Farmers/Details" asp-route-id="@Model.Product.Farmer.Id">More Farmer Details</a> | 
+    <a asp-page="/Farmers/Details" asp-route-id="@Model.Product.Farmer.Id">More Farmer Details</a> |
     @if (User.IsInRole(nameof(UserRole.Farmer)))
     {
         <a asp-page="./Edit" asp-route-id="@Model.Product.Id">Edit</a>

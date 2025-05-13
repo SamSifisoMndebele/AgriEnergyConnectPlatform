@@ -29,8 +29,8 @@
     h1 {
         padding-top: 64px;
         color: darkorange;
-        font-weight:700;
-        font-size:50px;
+        font-weight: 700;
+        font-size: 50px;
     }
 
     h4 {
@@ -38,6 +38,7 @@
         font-weight: 700;
         font-size: 30px;
     }
+
     .card-container {
         display: flex;
         flex-wrap: wrap;
@@ -48,74 +49,75 @@
 <h1>@Html.DisplayFor(model => model.AppUser.FullName)'s Edit</h1>
 
 <h4>Farmer Information</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AppUser.Id" />
+            <input type="hidden" asp-for="AppUser.Id"/>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="AppUser.Email" class="control-label"></label>
-                <input asp-for="AppUser.Email" class="form-control" />
+                <input asp-for="AppUser.Email" class="form-control"/>
                 <span asp-validation-for="AppUser.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="AppUser.UserRole" class="control-label"></label>
-                <select asp-for="AppUser.UserRole" asp-items="Html.GetEnumSelectList<UserRole>()" class="form-control"></select>
+                <select asp-for="AppUser.UserRole" asp-items="Html.GetEnumSelectList<UserRole>()"
+                        class="form-control"></select>
                 <span asp-validation-for="AppUser.UserRole" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="AppUser.Names" class="control-label"></label>
-                <input asp-for="AppUser.Names" class="form-control" />
+                <input asp-for="AppUser.Names" class="form-control"/>
                 <span asp-validation-for="AppUser.Names" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="AppUser.Surname" class="control-label"></label>
-                <input asp-for="AppUser.Surname" class="form-control" />
+                <input asp-for="AppUser.Surname" class="form-control"/>
                 <span asp-validation-for="AppUser.Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="AppUser.PhoneNumber" class="control-label"></label>
-                <input asp-for="AppUser.PhoneNumber" class="form-control" />
+                <input asp-for="AppUser.PhoneNumber" class="form-control"/>
                 <span asp-validation-for="AppUser.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+
                 <label asp-for="AppUser.StreetAddress" class="control-label"></label>
-                <input asp-for="AppUser.StreetAddress" class="form-control" />
+                <input asp-for="AppUser.StreetAddress" class="form-control"/>
                 <span asp-validation-for="AppUser.StreetAddress" class="text-danger"></span>
             </div>
             <div class="form-group visually-hidden">
-                
+
                 <label asp-for="AppUser.PasswordHash" class="control-label"></label>
-                <input asp-for="AppUser.PasswordHash" class="form-control" />
+                <input asp-for="AppUser.PasswordHash" class="form-control"/>
                 <span asp-validation-for="AppUser.PasswordHash" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+
                 <label asp-for="AppUser.City" class="control-label"></label>
-                <input asp-for="AppUser.City" class="form-control" />
+                <input asp-for="AppUser.City" class="form-control"/>
                 <span asp-validation-for="AppUser.City" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+
                 <label asp-for="AppUser.Province" class="control-label"></label>
-                <input asp-for="AppUser.Province" class="form-control" />
+                <input asp-for="AppUser.Province" class="form-control"/>
                 <span asp-validation-for="AppUser.Province" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+
                 <label asp-for="AppUser.PostalCode" class="control-label"></label>
-                <input asp-for="AppUser.PostalCode" class="form-control" />
+                <input asp-for="AppUser.PostalCode" class="form-control"/>
                 <span asp-validation-for="AppUser.PostalCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -126,5 +128,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

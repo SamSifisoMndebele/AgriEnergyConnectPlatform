@@ -26,8 +26,8 @@
     h1 {
         text-align: center;
         color: #4FA577;
-        font-size: 40px; 
-        margin-bottom: 10px; 
+        font-size: 40px;
+        margin-bottom: 10px;
     }
 
     h4 {
@@ -70,9 +70,9 @@
         cursor: pointer;
     }
 
-        .btn-primary:hover {
-            background-color: #FFAC00;
-        }
+    .btn-primary:hover {
+        background-color: #FFAC00;
+    }
 
     a {
         display: block;
@@ -81,16 +81,16 @@
         text-decoration: none;
     }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    a:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <div class="container">
     <h1>Welcome Back</h1>
     <h4>Log into your account</h4>
-    <br />
-    <br />
+    <br/>
+    <br/>
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
@@ -118,4 +118,6 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-}{
+}
+
+{

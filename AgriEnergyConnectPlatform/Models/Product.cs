@@ -10,9 +10,8 @@ public class Product
     [StringLength(60, MinimumLength = 3)]
     [Required]
     public string Name { get; set; }
-    
-    [StringLength(128, MinimumLength = 3)]
-    public string? Description { get; set; }
+
+    [StringLength(128, MinimumLength = 3)] public string? Description { get; set; }
 
     [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")]
     [StringLength(30)]
@@ -27,6 +26,7 @@ public class Product
     [Display(Name = "Production Date")]
     [DataType(DataType.Date)]
     public DateTime ProductionDate { get; set; }
+
     public int? Quantity { get; set; }
 
     [Range(0, 1000000)]

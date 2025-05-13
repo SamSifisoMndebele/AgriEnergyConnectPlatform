@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AgriEnergyConnectPlatform.Pages;
